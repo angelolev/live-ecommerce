@@ -1,4 +1,18 @@
-import * as React from "react";
 import type { SVGProps } from "react";
-const Component = (props: SVGProps<SVGSVGElement>) => <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" {...props}><path xmlns="http://www.w3.org/2000/svg" fill="currentColor" fillRule="evenodd" d="M18.281 6.26c-.356-.4-.868-.64-1.406-.64H12.5V4.38c0-1.73-1.399-3.13-3.125-3.13a.61.61 0 0 0-.559.35L5.864 7.5H2.5c-.69 0-1.25.56-1.25 1.25v6.87c0 .7.56 1.26 1.25 1.26h13.438a1.88 1.88 0 0 0 1.86-1.65l.938-7.5a1.86 1.86 0 0 0-.455-1.47M2.5 8.75h3.125v6.87H2.5zm14.995-1.17-.937 7.5a.613.613 0 0 1-.62.54H6.875V8.27l2.868-5.73c.876.17 1.507.94 1.507 1.84v1.87c0 .35.28.63.625.63h5c.179-.01.35.07.469.21a.61.61 0 0 1 .151.49" clipRule="evenodd" /></svg>;
+const Component = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 20 20"
+    {...props}
+  >
+    <path
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      fillRule="evenodd"
+      d="M18.281 6.26c-.356-.4-.868-.64-1.406-.64H12.5V4.38c0-1.73-1.399-3.13-3.125-3.13a.61.61 0 0 0-.559.35L5.864 7.5H2.5c-.69 0-1.25.56-1.25 1.25v6.87c0 .7.56 1.26 1.25 1.26h13.438a1.88 1.88 0 0 0 1.86-1.65l.938-7.5a1.86 1.86 0 0 0-.455-1.47M2.5 8.75h3.125v6.87H2.5zm14.995-1.17-.937 7.5a.613.613 0 0 1-.62.54H6.875V8.27l2.868-5.73c.876.17 1.507.94 1.507 1.84v1.87c0 .35.28.63.625.63h5c.179-.01.35.07.469.21a.61.61 0 0 1 .151.49"
+      clipRule="evenodd"
+    />
+  </svg>
+);
 export default Component;
