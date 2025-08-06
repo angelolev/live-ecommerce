@@ -1,0 +1,78 @@
+.reviewCard {
+  padding: 24px 0;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.reviewCard:last-child {
+  border-bottom: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.customerInfo {
+  flex: 1;
+}
+
+.customerName {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #171212;
+  margin: 0 0 4px 0;
+}
+
+.date {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #876363;
+  margin: 0;
+}
+
+.comment {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #171212;
+  margin: 12px 0 16px 0;
+}
+
+.actions {
+  display: flex;
+  gap: 36px;
+}
+
+.voteButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #876363;
+  transition: color 0.2s ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.voteButton:hover {
+  color: #171212;
+}
+
+.voteButton.active {
+  color: #171212;
+}

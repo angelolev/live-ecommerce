@@ -1,0 +1,127 @@
+.productList {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.loading, .error, .empty {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.empty p {
+  margin: 0.5rem 0;
+}
+
+.table {
+  display: table;
+  width: 100%;
+}
+
+.header {
+  display: table-row;
+  background: #f8f9fa;
+  font-weight: 600;
+}
+
+.row {
+  display: table-row;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row:hover {
+  background: #f8f9fa;
+}
+
+.cell {
+  display: table-cell;
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.cell:first-child {
+  width: 80px;
+}
+
+.cell:nth-child(2) {
+  width: 40%;
+}
+
+.cell:nth-child(3) {
+  width: 15%;
+}
+
+.cell:nth-child(4) {
+  width: 15%;
+}
+
+.cell:last-child {
+  width: 20%;
+}
+
+.productImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.productName {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.productDescription {
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editButton, .deleteButton {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.editButton {
+  background: #007bff;
+  color: white;
+}
+
+.editButton:hover {
+  background: #0056b3;
+}
+
+.deleteButton {
+  background: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover {
+  background: #c82333;
+}
+
+.deleteButton:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}

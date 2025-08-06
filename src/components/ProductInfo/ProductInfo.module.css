@@ -1,0 +1,45 @@
+.productInfo {
+  max-width: 600px;
+}
+
+.title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #171212;
+  margin: 0 0 16px 0;
+}
+
+.description {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #171212;
+  margin: 0 0 16px 0;
+}
+
+.price {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #876363;
+  margin: 0 0 32px 0;
+}
+
+.addToCartButton {
+  background-color: #ef4444 !important;
+  color: #ffffff !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.addToCartButton:hover {
+  background-color: #dc2626 !important;
+}

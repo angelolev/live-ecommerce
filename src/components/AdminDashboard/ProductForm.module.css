@@ -1,0 +1,195 @@
+.formContainer {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid #f5c6cb;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.row {
+  display: flex;
+  gap: 1rem;
+}
+
+.row .field {
+  flex: 1;
+}
+
+.label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.875rem;
+}
+
+.input, .textarea, .select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.input:focus, .textarea:focus, .select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.imagePreview {
+  margin-top: 0.5rem;
+}
+
+.previewImage {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  border: 1px solid #ddd;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.cancelButton, .submitButton {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.cancelButton {
+  background: #6c757d;
+  color: white;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #545b62;
+}
+
+.submitButton {
+  background: #28a745;
+  color: white;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: #218838;
+}
+
+.cancelButton:disabled, .submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Multiple Images Styles */
+.imagesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.addImageButton {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.addImageButton:hover {
+  background: #0056b3;
+}
+
+.imageInput {
+  margin-bottom: 1rem;
+}
+
+.imageInputRow {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.imageInputRow .input {
+  flex: 1;
+}
+
+.removeImageButton {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.removeImageButton:hover {
+  background: #c82333;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+
+  .imagesHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .imageInputRow {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .imageInputRow .input {
+    width: 100%;
+  }
+}

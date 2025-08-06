@@ -1,0 +1,38 @@
+.colorPicker {
+  margin-bottom: 24px;
+}
+
+.label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #171212;
+  margin: 0 0 12px 0;
+}
+
+.colors {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.colorButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid #e5dbdb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: none;
+  position: relative;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+}
+
+.colorButton.selected {
+  border: 3px solid #ffffff;
+  box-shadow: 0px 0px 0px 1px #171212;
+  transform: scale(1.05);
+}

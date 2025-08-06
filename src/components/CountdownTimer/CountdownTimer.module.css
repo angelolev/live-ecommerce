@@ -1,0 +1,6 @@
+.countdownTimer {
+  display: flex;
+  gap: var(--spacing-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,41 @@
+.sizeSelector {
+  margin-bottom: 24px;
+}
+
+.label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #171212;
+  margin: 0 0 12px 0;
+}
+
+.sizes {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sizeButton {
+  padding: 12px 16px;
+  border: 1px solid #e5e8eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #171212;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 48px;
+}
+
+.sizeButton:hover {
+  border-color: #171212;
+}
+
+.sizeButton.selected {
+  background-color: #171212;
+  color: #ffffff;
+  border-color: #171212;
+}

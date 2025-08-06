@@ -1,0 +1,29 @@
+.starRating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  transition: color 0.2s ease;
+}
+
+.star.filled {
+  color: #ffd600;
+}
+
+.star.empty {
+  color: #e5e8eb;
+}
+
+.ratingText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #876363;
+}

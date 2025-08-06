@@ -1,0 +1,55 @@
+.page {
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #171212;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 40px;
+}
+
+.productSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-bottom: 64px;
+  align-items: start;
+}
+
+.imageSection {
+  width: 100%;
+}
+
+.infoSection {
+  width: 100%;
+}
+
+.reviewsSection {
+  width: 100%;
+}
+
+.reviewsTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #171212;
+  margin: 0 0 32px 0;
+}
+
+.reviewsList {
+  margin-top: 32px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 24px 20px;
+  }
+  
+  .productSection {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+}
