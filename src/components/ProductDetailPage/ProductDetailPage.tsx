@@ -54,9 +54,9 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 }) => {
   const navigate = useNavigate();
   const breadcrumbItems = [
-    { label: 'Home', href: '#', onClick: () => navigate('/') },
-    { label: 'Women', href: '#' },
-    { label: 'Clothing' }
+    { label: 'Inicio', href: '#', onClick: () => navigate('/') },
+    { label: 'Mujer', href: '#' },
+    { label: 'Ropa' }
   ];
 
   return (
@@ -80,7 +80,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         </div>
         
         <div className={styles.reviewsSection}>
-          <h2 className={styles.reviewsTitle}>Customer Reviews</h2>
+          <h2 className={styles.reviewsTitle}>Reseñas de Clientes</h2>
           
           <RatingBreakdown
             rating={product.rating}

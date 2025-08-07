@@ -21,7 +21,7 @@ export const ProductList: React.FC<ProductListProps> = ({
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this product?')) {
+    if (!confirm('¿Estás seguro de que quieres eliminar este producto?')) {
       return;
     }
 
@@ -30,15 +30,15 @@ export const ProductList: React.FC<ProductListProps> = ({
       await productService.deleteProduct(id);
       onRefresh();
     } catch (error) {
-      console.error('Error deleting product:', error);
-      alert('Failed to delete product');
+      console.error('Error al eliminar el producto:', error);
+      alert('Error al eliminar el producto');
     } finally {
       setDeletingId(null);
     }
   };
 
   if (loading) {
-    return <div className={styles.loading}>Loading products...</div>;
+    return <div className={styles.loading}>Cargando productos...</div>;
   }
 
   if (error) {
@@ -48,8 +48,8 @@ export const ProductList: React.FC<ProductListProps> = ({
   if (products.length === 0) {
     return (
       <div className={styles.empty}>
-        <p>No products found.</p>
-        <p>Add your first product to get started!</p>
+        <p>No se encontraron productos.</p>
+        <p>¡Añade tu primer producto para empezar!</p>
       </div>
     );
   }
@@ -58,11 +58,11 @@ export const ProductList: React.FC<ProductListProps> = ({
     <div className={styles.productList}>
       <div className={styles.table}>
         <div className={styles.header}>
-          <div className={styles.cell}>Image</div>
-          <div className={styles.cell}>Name</div>
-          <div className={styles.cell}>Category</div>
-          <div className={styles.cell}>Price</div>
-          <div className={styles.cell}>Actions</div>
+          <div className={styles.cell}>Imagen</div>
+          <div className={styles.cell}>Nombre</div>
+          <div className={styles.cell}>Categoría</div>
+          <div className={styles.cell}>Precio</div>
+          <div className={styles.cell}>Acciones</div>
         </div>
 
         {products.map((product) => (
@@ -88,14 +88,14 @@ export const ProductList: React.FC<ProductListProps> = ({
                   className={styles.editButton}
                   onClick={() => onEdit(product)}
                 >
-                  Edit
+                  Editar
                 </button>
                 <button
                   className={styles.deleteButton}
                   onClick={() => handleDelete(product.id)}
                   disabled={deletingId === product.id}
                 >
-                  {deletingId === product.id ? 'Deleting...' : 'Delete'}
+                  {deletingId === product.id ? 'Eliminando...' : 'Eliminar'}
                 </button>
               </div>
             </div>

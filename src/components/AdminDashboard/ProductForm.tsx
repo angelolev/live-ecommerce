@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { productService } from '../../services/productService';
+import { useCategories, useCreateProduct, useUpdateProduct } from '../../hooks/queries';
 import type { Product, ProductFormData } from '../../types/product';
 import styles from './ProductForm.module.css';
 
@@ -9,30 +9,25 @@ interface ProductFormProps {
   onCancel: () => void;
 }
 
-const categories = [
-  'Men\'s Fashion',
-  'Women\'s Fashion',
-  'Accessories',
-  'Shoes',
-  'Electronics',
-  'Home & Garden',
-  'Sports & Outdoors'
-];
 
 export const ProductForm: React.FC<ProductFormProps> = ({
   product,
   onSuccess,
   onCancel
 }) => {
+  const { data: categories = [], isLoading: categoriesLoading } = useCategories();
+  const createProductMutation = useCreateProduct();
+  const updateProductMutation = useUpdateProduct();
   const [formData, setFormData] = useState<ProductFormData>({
     name: '',
     description: '',
     price: 0,
     images: [''],
-    category: categories[0]
+    category: ''
   });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  const isLoading = createProductMutation.isPending || updateProductMutation.isPending;
 
   useEffect(() => {
     if (product) {
@@ -43,8 +38,14 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         images: product.images.length > 0 ? product.images : [''],
         category: product.category
       });
+    } else if (categories.length > 0 && !formData.category) {
+      // Set default category when categories are loaded and no category is selected
+      setFormData(prev => ({
+        ...prev,
+        category: categories[0].name
+      }));
     }
-  }, [product]);
+  }, [product, categories, formData.category]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,35 +53,31 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     const validImages = formData.images.filter(img => img.trim() !== '');
     
     if (!formData.name.trim() || !formData.description.trim() || validImages.length === 0) {
-      setError('Please fill in all required fields and at least one image');
+      setError('Por favor, rellene todos los campos obligatorios y al menos una imagen');
       return;
     }
 
     if (formData.price <= 0) {
-      setError('Price must be greater than 0');
+      setError('El precio debe ser mayor que 0');
       return;
     }
 
+    setError(null);
+
+    const productData = {
+      ...formData,
+      images: validImages
+    };
+    
     try {
-      setLoading(true);
-      setError(null);
-
-      const productData = {
-        ...formData,
-        images: formData.images.filter(img => img.trim() !== '')
-      };
-      
       if (product) {
-        await productService.updateProduct(product.id, productData);
+        await updateProductMutation.mutateAsync({ id: product.id, productData });
       } else {
-        await productService.createProduct(productData);
+        await createProductMutation.mutateAsync(productData);
       }
-
       onSuccess();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to save product');
-    } finally {
-      setLoading(false);
+      setError(err instanceof Error ? err.message : 'Error al guardar el producto');
     }
   };
 
@@ -124,7 +121,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         <div className={styles.field}>
           <label htmlFor="name" className={styles.label}>
-            Product Name *
+            Nombre del Producto *
           </label>
           <input
             type="text"
@@ -139,7 +136,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
         <div className={styles.field}>
           <label htmlFor="description" className={styles.label}>
-            Description *
+            Descripción *
           </label>
           <textarea
             id="description"
@@ -155,7 +152,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         <div className={styles.row}>
           <div className={styles.field}>
             <label htmlFor="price" className={styles.label}>
-              Price ($) *
+              Precio ($) *
             </label>
             <input
               type="number"
@@ -172,7 +169,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
           <div className={styles.field}>
             <label htmlFor="category" className={styles.label}>
-              Category
+              Categoría
             </label>
             <select
               id="category"
@@ -180,10 +177,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({
               value={formData.category}
               onChange={handleChange}
               className={styles.select}
+              disabled={categoriesLoading || categories.length === 0}
             >
+              {categoriesLoading && (
+                <option value="">Cargando categorías...</option>
+              )}
+              {!categoriesLoading && categories.length === 0 && (
+                <option value="">No hay categorías disponibles</option>
+              )}
               {categories.map(category => (
-                <option key={category} value={category}>
-                  {category}
+                <option key={category.id} value={category.name}>
+                  {category.name}
                 </option>
               ))}
             </select>
@@ -193,7 +197,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         <div className={styles.field}>
           <div className={styles.imagesHeader}>
             <label className={styles.label}>
-              Product Images * (1-3 images)
+              Imágenes del Producto * (1-3 imágenes)
             </label>
             {formData.images.length < 3 && (
               <button
@@ -201,7 +205,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 onClick={addImageField}
                 className={styles.addImageButton}
               >
-                + Add Image
+                + Añadir Imagen
               </button>
             )}
           </div>
@@ -214,7 +218,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                   value={image}
                   onChange={(e) => handleImageChange(index, e.target.value)}
                   className={styles.input}
-                  placeholder={`Image ${index + 1} URL - https://example.com/image.jpg`}
+                  placeholder={`URL de la Imagen ${index + 1} - https://example.com/image.jpg`}
                 />
                 {formData.images.length > 1 && (
                   <button
@@ -222,13 +226,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     onClick={() => removeImageField(index)}
                     className={styles.removeImageButton}
                   >
-                    Remove
+                    Eliminar
                   </button>
                 )}
               </div>
               {image && (
                 <div className={styles.imagePreview}>
-                  <img src={image} alt={`Preview ${index + 1}`} className={styles.previewImage} />
+                  <img src={image} alt={`Vista previa ${index + 1}`} className={styles.previewImage} />
                 </div>
               )}
             </div>
@@ -240,16 +244,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             type="button"
             onClick={onCancel}
             className={styles.cancelButton}
-            disabled={loading}
+            disabled={isLoading}
           >
-            Cancel
+            Cancelar
           </button>
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={loading}
+            disabled={isLoading}
           >
-            {loading ? 'Saving...' : (product ? 'Update Product' : 'Create Product')}
+            {isLoading ? 'Guardando...' : (product ? 'Actualizar Producto' : 'Crear Producto')}
           </button>
         </div>
       </form>

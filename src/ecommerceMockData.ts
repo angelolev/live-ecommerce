@@ -13,6 +13,35 @@ export interface CountdownData {
   seconds: number;
 }
 
+// Real countdown function that calculates time until target date
+export const calculateTimeUntil = (targetDate: Date): CountdownData => {
+  // Validate input
+  if (!targetDate || !(targetDate instanceof Date) || isNaN(targetDate.getTime())) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const now = Date.now();
+  const target = targetDate.getTime();
+  const difference = target - now;
+
+  if (difference <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  // Use more precise calculations
+  const millisecondsPerSecond = 1000;
+  const millisecondsPerMinute = millisecondsPerSecond * 60;
+  const millisecondsPerHour = millisecondsPerMinute * 60;
+  const millisecondsPerDay = millisecondsPerHour * 24;
+
+  const days = Math.floor(difference / millisecondsPerDay);
+  const hours = Math.floor((difference % millisecondsPerDay) / millisecondsPerHour);
+  const minutes = Math.floor((difference % millisecondsPerHour) / millisecondsPerMinute);
+  const seconds = Math.floor((difference % millisecondsPerMinute) / millisecondsPerSecond);
+
+  return { days, hours, minutes, seconds };
+};
+
 export interface CategoryData {
   id: string;
   name: string;
@@ -43,47 +72,47 @@ export const mockRootProps = {
   featuredCategories: [
     {
       id: "mens-fashion",
-      name: "Men's Fashion",
+      name: "Moda Masculina",
       image: "/images/mens-fashion.png"
     },
     {
       id: "womens-fashion", 
-      name: "Women's Fashion",
+      name: "Moda Femenina",
       image: "/images/womens-fashion.png"
     },
     {
       id: "accessories",
-      name: "Accessories", 
+      name: "Accesorios", 
       image: "/images/accessories.png"
     },
     {
       id: "shoes",
-      name: "Shoes",
+      name: "Zapatos",
       image: "/images/shoes.png"
     }
   ],
   topDeals: [
     {
       id: "winter-jacket",
-      name: "Cozy Winter Jacket",
+      name: "Chaqueta de Invierno Acogedora",
       price: 79.99,
       image: "/images/winter-jacket.png"
     },
     {
       id: "evening-dress",
-      name: "Elegant Evening Dress", 
+      name: "Vestido de Noche Elegante", 
       price: 59.99,
       image: "/images/evening-dress.png"
     },
     {
       id: "running-shoes",
-      name: "Fashionable Running Shoes",
+      name: "Zapatillas de Correr de Moda",
       price: 49.99,
       image: "/images/running-shoes.png"
     },
     {
       id: "wrist-watch",
-      name: "Modern Wrist Watch",
+      name: "Reloj de Pulsera Moderno",
       price: 99.99,
       image: "/images/wrist-watch.png"
     }

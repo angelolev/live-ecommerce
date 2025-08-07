@@ -8,6 +8,7 @@ import {
   deleteDoc, 
   query, 
   orderBy,
+  where,
   Timestamp 
 } from 'firebase/firestore';
 import { db } from '../lib/firebase';
@@ -91,6 +92,89 @@ export const productService = {
     } catch (error) {
       console.error('Error deleting product:', error);
       throw new Error('Failed to delete product');
+    }
+  },
+
+  async getProductsByCategory(categoryName: string): Promise<Product[]> {
+    try {
+      const q = query(
+        collection(db, COLLECTION_NAME),
+        where('category', '==', categoryName),
+        orderBy('createdAt', 'desc')
+      );
+      const querySnapshot = await getDocs(q);
+      
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate() || new Date(),
+        updatedAt: doc.data().updatedAt?.toDate() || new Date(),
+      })) as Product[];
+    } catch (error) {
+      console.error('Error fetching products by category:', error);
+      throw new Error('Failed to fetch products by category');
+    }
+  },
+
+  async getProductsWithFilters(filters: {
+    category?: string;
+    minPrice?: number;
+    maxPrice?: number;
+    sortBy?: 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc' | 'newest' | 'oldest';
+  }): Promise<Product[]> {
+    try {
+      let q = collection(db, COLLECTION_NAME);
+      const constraints = [];
+
+      // Add category filter if specified
+      if (filters.category) {
+        constraints.push(where('category', '==', filters.category));
+      }
+
+      // Add sorting
+      switch (filters.sortBy) {
+        case 'price-asc':
+          constraints.push(orderBy('price', 'asc'));
+          break;
+        case 'price-desc':
+          constraints.push(orderBy('price', 'desc'));
+          break;
+        case 'name-asc':
+          constraints.push(orderBy('name', 'asc'));
+          break;
+        case 'name-desc':
+          constraints.push(orderBy('name', 'desc'));
+          break;
+        case 'oldest':
+          constraints.push(orderBy('createdAt', 'asc'));
+          break;
+        case 'newest':
+        default:
+          constraints.push(orderBy('createdAt', 'desc'));
+          break;
+      }
+
+      const querySnapshot = await getDocs(query(q, ...constraints));
+      
+      let products = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate() || new Date(),
+        updatedAt: doc.data().updatedAt?.toDate() || new Date(),
+      })) as Product[];
+
+      // Apply price filters in memory (Firebase doesn't support range queries with other filters easily)
+      if (filters.minPrice !== undefined) {
+        products = products.filter(product => product.price >= filters.minPrice!);
+      }
+      if (filters.maxPrice !== undefined) {
+        products = products.filter(product => product.price <= filters.maxPrice!);
+      }
+
+      return products;
+    } catch (error) {
+      console.error('Error fetching products with filters:', error);
+      throw new Error('Failed to fetch products with filters');
     }
   },
 };

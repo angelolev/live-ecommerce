@@ -7,7 +7,7 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { useCart } from '../../hooks/useCart';
 import styles from './Header.module.css';
 
-const menuItems = ['New Arrivals', 'Men', 'Women', 'Accessories', 'Sale'];
+const menuItems = ['Novedades', 'Hombre', 'Mujer', 'Accesorios', 'Ofertas'];
 
 export const Header: React.FC = () => {
   const { cart } = useCart();

@@ -11,8 +11,8 @@ export const ShoppingCartPage: React.FC = () => {
   const { cart } = useCart();
 
   const breadcrumbItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Shopping Cart' },
+    { label: 'Inicio', href: '/' },
+    { label: 'Carrito de Compras' },
   ];
 
   if (cart.items.length === 0) {
@@ -23,11 +23,11 @@ export const ShoppingCartPage: React.FC = () => {
           <div className={styles.container}>
             <Breadcrumb items={breadcrumbItems} />
             <div className={styles.emptyCart}>
-              <h1 className={styles.title}>Shopping Cart</h1>
+              <h1 className={styles.title}>Carrito de Compras</h1>
               <div className={styles.emptyState}>
-                <p className={styles.emptyMessage}>Your cart is empty</p>
+                <p className={styles.emptyMessage}>Tu carrito está vacío</p>
                 <Link to="/" className={styles.continueShopping}>
-                  Continue Shopping
+                  Continuar Comprando
                 </Link>
               </div>
             </div>
@@ -44,7 +44,7 @@ export const ShoppingCartPage: React.FC = () => {
         <div className={styles.container}>
           <Breadcrumb items={breadcrumbItems} />
           
-          <h1 className={styles.title}>Shopping Cart</h1>
+          <h1 className={styles.title}>Carrito de Compras</h1>
           
           <div className={styles.cartContent}>
             <div className={styles.cartItems}>

@@ -50,6 +50,30 @@
   margin: 0 0 32px 0;
 }
 
+.loadingState {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.errorState {
+  text-align: center;
+  padding: 2rem;
+  background: #fee2e2;
+  border-radius: 8px;
+  color: #dc2626;
+  margin: 1rem 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  color: #64748b;
+  margin: 1rem 0;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 20px;

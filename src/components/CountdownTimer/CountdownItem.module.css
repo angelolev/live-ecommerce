@@ -2,9 +2,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-md, 1rem);
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-sm, 8px);
   padding: 24px 32px;
   min-width: 120px;
 }
@@ -12,11 +12,11 @@
 .value {
   font-size: 18px;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, #ffffff);
 }
 
 .label {
   font-size: 14px;
   font-weight: 400;
-  color: var(--color-text-primary);
+  color: var(--color-text-primary, #ffffff);
 }

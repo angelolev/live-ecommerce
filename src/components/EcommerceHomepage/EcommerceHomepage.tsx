@@ -6,23 +6,21 @@ import { CountdownTimer } from "../CountdownTimer/CountdownTimer";
 import { CategoryCard } from "../CategoryCard/CategoryCard";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
-import { useProducts } from "../../hooks/useProducts";
-import type { CountdownData, CategoryData } from "../../ecommerceMockData";
+import { useCategories, useFeaturedProducts } from "../../hooks/queries";
+// Remove unused import
 import styles from "./EcommerceHomepage.module.css";
 
-interface EcommerceHomepageProps {
-  countdown: CountdownData;
-  featuredCategories: CategoryData[];
-}
-
-export const EcommerceHomepage: React.FC<EcommerceHomepageProps> = ({
-  countdown,
-  featuredCategories,
-}) => {
+export const EcommerceHomepage: React.FC = () => {
   const navigate = useNavigate();
-  const { products, loading, error } = useProducts();
+  const { data: products = [], isLoading: productsLoading, error: productsError } = useFeaturedProducts();
+  const { data: categories = [], isLoading: categoriesLoading, error: categoriesError } = useCategories();
   const handleCategoryClick = (categoryId: string) => {
-    console.log("Category clicked:", categoryId);
+    // Find the category name and create URL-friendly slug
+    const category = categories.find(cat => cat.id === categoryId);
+    if (category) {
+      const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
+      navigate(`/category/${categorySlug}`);
+    }
   };
 
   const handleProductClick = (productId: string) => {
@@ -37,43 +35,79 @@ export const EcommerceHomepage: React.FC<EcommerceHomepageProps> = ({
         <div className={styles.container}>
           <HeroBanner />
 
-          <CountdownTimer countdown={countdown} />
+          <CountdownTimer />
 
           <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Featured Categories</h2>
-            <div className={styles.categoriesGrid}>
-              {featuredCategories.map((category) => (
-                <CategoryCard
-                  key={category.id}
-                  category={category}
-                  onClick={handleCategoryClick}
-                />
-              ))}
-            </div>
+            <h2 className={styles.sectionTitle}>Categorías Destacadas</h2>
+            {categoriesLoading && (
+              <div className={styles.loadingState}>
+                <p>Cargando categorías...</p>
+              </div>
+            )}
+            {categoriesError && (
+              <div className={styles.errorState}>
+                <p>Error al cargar categorías: {categoriesError.message}</p>
+              </div>
+            )}
+            {!categoriesLoading && !categoriesError && categories.length === 0 && (
+              <div className={styles.emptyState}>
+                <p>No hay categorías disponibles. Ve al panel de administración para agregar categorías.</p>
+              </div>
+            )}
+            {!categoriesLoading && !categoriesError && categories.length > 0 && (
+              <div className={styles.categoriesGrid}>
+                {categories.map((category) => (
+                  <CategoryCard
+                    key={category.id}
+                    category={{
+                      id: category.id,
+                      name: category.name,
+                      image: category.imageUrl
+                    }}
+                    onClick={handleCategoryClick}
+                  />
+                ))}
+              </div>
+            )}
           </section>
 
           <section className={styles.section}>
-            <h2 className={styles.sectionTitle}>Top Deals</h2>
-            {loading && <p>Loading products...</p>}
-            {error && <p>Error loading products: {error}</p>}
-            <div className={styles.productsGrid}>
-              {products.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onClick={handleProductClick}
-                />
-              ))}
-            </div>
+            <h2 className={styles.sectionTitle}>Ofertas Especiales</h2>
+            {productsLoading && (
+              <div className={styles.loadingState}>
+                <p>Cargando productos...</p>
+              </div>
+            )}
+            {productsError && (
+              <div className={styles.errorState}>
+                <p>Error al cargar productos: {productsError.message}</p>
+              </div>
+            )}
+            {!productsLoading && !productsError && products.length === 0 && (
+              <div className={styles.emptyState}>
+                <p>No hay productos disponibles. Ve al panel de administración para agregar productos.</p>
+              </div>
+            )}
+            {!productsLoading && !productsError && products.length > 0 && (
+              <div className={styles.productsGrid}>
+                {products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onClick={handleProductClick}
+                  />
+                ))}
+              </div>
+            )}
           </section>
 
           <section className={styles.callToAction}>
-            <h2 className={styles.ctaTitle}>Don't Miss Out!</h2>
+            <h2 className={styles.ctaTitle}>¡No te lo pierdas!</h2>
             <Button
               size="large"
               onClick={() => console.log("Shop the Sale clicked")}
             >
-              Shop the Sale
+              Comprar Ahora
             </Button>
           </section>
         </div>

@@ -7,11 +7,11 @@ import { CategoryCard } from './components/CategoryCard/CategoryCard';
 import { ProductCard } from './components/ProductCard/ProductCard';
 import { Button } from './components/Button/Button';
 import { SearchBar } from './components/SearchBar/SearchBar';
-import { mockRootProps } from './ecommerceMockData';
+// Remove unused mock data import
 
 // Main preview component
 export const EcommerceHomepagePreview: React.FC = () => {
-  return <EcommerceHomepage {...mockRootProps} />;
+  return <EcommerceHomepage />;
 };
 
 // Export all components for preview

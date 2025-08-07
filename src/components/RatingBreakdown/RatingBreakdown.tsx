@@ -24,7 +24,7 @@ export const RatingBreakdown: React.FC<RatingBreakdownProps> = ({
       <div className={styles.overallRating}>
         <div className={styles.ratingNumber}>{formatRating(rating)}</div>
         <StarRating rating={rating} size="small" />
-        <div className={styles.reviewCount}>{reviewCount} reviews</div>
+        <div className={styles.reviewCount}>{reviewCount} reseñas</div>
       </div>
       
       <div className={styles.breakdown}>

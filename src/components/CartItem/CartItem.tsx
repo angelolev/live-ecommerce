@@ -35,7 +35,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
       <div className={styles.itemDetails}>
         <h3 className={styles.itemName}>{item.product.name}</h3>
         <div className={styles.itemMeta}>
-          {item.size && <span className={styles.size}>Size: {item.size}</span>}
+          {item.size && <span className={styles.size}>Talla: {item.size}</span>}
           {item.color && <span className={styles.color}>Color: {item.color}</span>}
         </div>
         <div className={styles.itemPrice}>
@@ -47,7 +47,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <button
           className={styles.quantityButton}
           onClick={() => handleQuantityChange(item.quantity - 1)}
-          aria-label="Decrease quantity"
+          aria-label="Disminuir cantidad"
         >
           −
         </button>
@@ -55,7 +55,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
         <button
           className={styles.quantityButton}
           onClick={() => handleQuantityChange(item.quantity + 1)}
-          aria-label="Increase quantity"
+          aria-label="Aumentar cantidad"
         >
           +
         </button>
@@ -64,7 +64,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
       <button
         className={styles.removeButton}
         onClick={handleRemove}
-        aria-label="Remove item"
+        aria-label="Eliminar artículo"
       >
         ×
       </button>

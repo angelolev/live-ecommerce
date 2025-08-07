@@ -17,7 +17,7 @@ export const OrderSummary: React.FC = () => {
 
   return (
     <div className={styles.orderSummary}>
-      <h2 className={styles.title}>Order Summary</h2>
+      <h2 className={styles.title}>Resumen del Pedido</h2>
       
       <div className={styles.summaryDetails}>
         <div className={styles.summaryRow}>
@@ -26,9 +26,9 @@ export const OrderSummary: React.FC = () => {
         </div>
         
         <div className={styles.summaryRow}>
-          <span className={styles.label}>Shipping</span>
+          <span className={styles.label}>Envío</span>
           <span className={styles.value}>
-            {cart.shipping === 0 ? 'Free' : `$${cart.shipping.toFixed(2)}`}
+            {cart.shipping === 0 ? 'Gratis' : `${cart.shipping.toFixed(2)}`}
           </span>
         </div>
         
@@ -43,7 +43,7 @@ export const OrderSummary: React.FC = () => {
         className={styles.checkoutButton}
         size="large"
       >
-        Proceed to Checkout
+        Proceder al Pago
       </Button>
     </div>
   );

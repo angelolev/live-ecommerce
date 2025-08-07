@@ -8,7 +8,7 @@ interface SearchBarProps {
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
-  placeholder = "Search",
+  placeholder = "Buscar",
   onSearch
 }) => {
   const [query, setQuery] = React.useState('');

@@ -33,7 +33,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {
-      alert('Please select size and color');
+      alert('Por favor, seleccione talla y color');
       return;
     }
     
@@ -52,7 +52,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     addToCart(cartProduct, 1, selectedSize, selectedColor);
     
     // Show success message
-    alert('Added to cart! Click OK to continue shopping.');
+    alert('¡Añadido al carrito! Haga clic en Aceptar para continuar comprando.');
   };
 
   return (
@@ -81,7 +81,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         onClick={handleAddToCart}
         className={styles.addToCartButton}
       >
-        Add to Cart
+        Añadir al carrito
       </Button>
     </div>
   );

@@ -10,15 +10,15 @@ export const mockProductImages = [
 // Main product data
 export const mockProduct = {
   id: "floral-maxi-dress",
-  name: "Floral Print Maxi Dress",
-  description: "This elegant maxi dress features a vibrant floral print, perfect for any occasion. Made from lightweight fabric, it offers both style and comfort.",
+  name: "Vestido Maxi con Estampado Floral",
+  description: "Este elegante vestido maxi presenta un vibrante estampado floral, perfecto para cualquier ocasión. Hecho de tela ligera, ofrece tanto estilo como comodidad.",
   price: 79.99,
   images: mockProductImages,
   availableSizes: ["XS", "S", "M", "L"] as const,
   availableColors: [
-    { name: "yellow" as const, hex: "#ffd600" },
-    { name: "blue" as const, hex: "#0000ff" },
-    { name: "red" as const, hex: "#ff0000" }
+    { name: "amarillo" as const, hex: "#ffd600" },
+    { name: "azul" as const, hex: "#0000ff" },
+    { name: "rojo" as const, hex: "#ff0000" }
   ],
   rating: 4.5,
   reviewCount: 120
@@ -40,7 +40,7 @@ export const mockReviews = [
     customerName: "Sophia Bennett",
     date: new Date("2023-08-15"),
     rating: 5,
-    comment: "Absolutely love this dress! The floral print is beautiful and the fabric is so comfortable. It fits perfectly and I've received so many compliments.",
+    comment: "¡Absolutamente amo este vestido! El estampado floral es hermoso y la tela es muy cómoda. Me queda perfecto y he recibido muchos cumplidos.",
     avatar: "/images/avatar-sophia.png",
     helpfulCount: 5,
     notHelpfulCount: 1
@@ -50,7 +50,7 @@ export const mockReviews = [
     customerName: "Emily Harper",
     date: new Date("2023-07-22"),
     rating: 4,
-    comment: "The dress is lovely and the colors are vibrant. The fit is true to size, but the fabric is a bit thinner than expected. Overall, a great purchase.",
+    comment: "El vestido es encantador y los colores son vibrantes. El ajuste es fiel a la talla, pero la tela es un poco más delgada de lo esperado. En general, una gran compra.",
     avatar: "/images/avatar-emily.png",
     helpfulCount: 3,
     notHelpfulCount: 0
