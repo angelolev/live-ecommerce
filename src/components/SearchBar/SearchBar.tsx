@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import SearchIcon from '../icons/SearchIcon';
 import styles from './SearchBar.module.css';
 
@@ -12,10 +13,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   onSearch
 }) => {
   const [query, setQuery] = React.useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch?.(query);
+    if (query.trim()) {
+      if (onSearch) {
+        onSearch(query.trim());
+      } else {
+        navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+      }
+    }
   };
 
   return (

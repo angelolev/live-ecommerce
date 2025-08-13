@@ -7,7 +7,6 @@ import { CategoryCard } from "../CategoryCard/CategoryCard";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
 import { useCategories, useFeaturedProducts } from "../../hooks/queries";
-// Remove unused import
 import styles from "./EcommerceHomepage.module.css";
 
 export const EcommerceHomepage: React.FC = () => {

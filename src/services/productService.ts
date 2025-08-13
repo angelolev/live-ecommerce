@@ -177,4 +177,29 @@ export const productService = {
       throw new Error('Failed to fetch products with filters');
     }
   },
+
+  async searchProducts(searchTerm: string): Promise<Product[]> {
+    try {
+      // Get all products first (Firebase doesn't have good text search capabilities)
+      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      
+      const allProducts = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt?.toDate() || new Date(),
+        updatedAt: doc.data().updatedAt?.toDate() || new Date(),
+      })) as Product[];
+
+      // Filter products by search term (case-insensitive search in name and description)
+      const searchTermLower = searchTerm.toLowerCase();
+      return allProducts.filter(product => 
+        product.name.toLowerCase().includes(searchTermLower) ||
+        product.description.toLowerCase().includes(searchTermLower)
+      );
+    } catch (error) {
+      console.error('Error searching products:', error);
+      throw new Error('Failed to search products');
+    }
+  },
 };

@@ -1,19 +1,30 @@
 .heroBanner {
   position: relative;
   height: 480px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%), 
-              url('/images/hero-background.png') center/cover no-repeat;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 36px 0;
+  transition: filter 0.5s ease-in-out;
+  overflow: hidden;
+}
+
+.blurPlaceholder {
+  filter: blur(20px);
+}
+
+.imageLoaded {
+  filter: blur(0px);
 }
 
 .content {
   text-align: center;
   max-width: 500px;
   padding: 0 20px;
+  position: relative;
+  z-index: 2; /* Ensure content stays above any background effects */
 }
 
 .title {
@@ -31,4 +42,26 @@
   color: var(--color-text-primary);
   margin: 0 0 32px 0;
   line-height: 1.5;
+}
+
+.loadingContent {
+  opacity: 0.7;
+}
+
+.loadingContent .title {
+  animation: pulse 2s ease-in-out infinite;
+  color: #374151; /* Darker color for better contrast on light gradient */
+}
+
+.loadingContent .subtitle {
+  color: #6b7280; /* Muted but readable on light background */
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
 }

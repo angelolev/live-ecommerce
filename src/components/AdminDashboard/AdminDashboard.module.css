@@ -1,11 +1,11 @@
 .dashboard {
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #fdfaf6;
 }
 
 .header {
-  background: white;
-  border-bottom: 1px solid #e0e0e0;
+  background: #ffffff;
+  border-bottom: 1px solid #f0e9e1;
   padding: 1rem 0;
 }
 
@@ -21,12 +21,12 @@
 .title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #333;
+  color: #4a4a4a;
   margin: 0;
 }
 
 .backLink {
-  color: #007bff;
+  color: #b5838d;
   text-decoration: none;
   font-weight: 500;
 }
@@ -59,13 +59,13 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  background: white;
+  background: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0e9e1;
 }
 
 .nav li {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #f0e9e1;
 }
 
 .nav li:last-child {
@@ -80,7 +80,7 @@
   text-align: left;
   font-size: 1rem;
   font-weight: 500;
-  color: #6c757d;
+  color: #6d6875;
   cursor: pointer;
   transition: all 0.2s;
   border-radius: 0;
@@ -97,13 +97,13 @@
 }
 
 .navButton:hover {
-  background: #f8f9fa;
-  color: #333;
+  background: #fcf8f3;
+  color: #4a4a4a;
 }
 
 .navButton.active {
-  background: #007bff;
-  color: white;
+  background: #e5c5c8;
+  color: #ffffff;
 }
 
 .content {
@@ -120,30 +120,30 @@
 
 .toolbar h2 {
   margin: 0;
-  color: #333;
+  color: #4a4a4a;
 }
 
 .addButton, .backButton {
-  background: #007bff;
+  background: #b5838d;
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
 }
 
 .addButton:hover, .backButton:hover {
-  background: #0056b3;
+  background: #a3707d;
 }
 
 .backButton {
-  background: #6c757d;
+  background: #c0c0c0;
 }
 
 .backButton:hover {
-  background: #545b62;
+  background: #a9a9a9;
 }
 
 @media (max-width: 768px) {

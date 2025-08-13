@@ -10,7 +10,7 @@
   border: 1px solid #f0e9e1;
 }
 
-.field {
+.formGroup {
   margin-bottom: 1.5rem;
 }
 
@@ -29,6 +29,7 @@
   font-size: 1rem;
   transition: border-color 0.2s;
   background-color: #fdfaf6;
+  box-sizing: border-box;
 }
 
 .input:focus {
@@ -37,16 +38,38 @@
   box-shadow: 0 0 0 3px rgba(181, 131, 141, 0.1);
 }
 
-.preview {
-  margin-bottom: 1.5rem;
+.textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e0dcd7;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  background-color: #fdfaf6;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
 }
 
-.previewImage {
-  max-width: 150px;
-  max-height: 100px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid #f0e9e1;
+.textarea:focus {
+  outline: none;
+  border-color: #b5838d;
+  box-shadow: 0 0 0 3px rgba(181, 131, 141, 0.1);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+
+.checkbox {
+  width: auto;
+  margin: 0;
 }
 
 .error {
@@ -58,7 +81,7 @@
   font-size: 0.875rem;
 }
 
-.actions {
+.formActions {
   display: flex;
   gap: 1rem;
   justify-content: flex-end;

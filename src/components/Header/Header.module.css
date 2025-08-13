@@ -66,6 +66,7 @@
   padding: 8px;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  position: relative;
 }
 
 .actionButton:hover {

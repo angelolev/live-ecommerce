@@ -51,3 +51,43 @@ export interface FilterOptions {
     label: string;
   }[];
 }
+
+export interface HeroBanner {
+  id: string;
+  title: string;
+  subtitle: string;
+  backgroundImageUrl: string;
+  buttonText: string;
+  buttonLink: string;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface HeroBannerFormData {
+  title: string;
+  subtitle: string;
+  backgroundImageUrl: string;
+  buttonText: string;
+  buttonLink: string;
+  isActive: boolean;
+}
+
+export interface FavoritesItem {
+  id: string;
+  product: Product;
+  addedAt: Date;
+}
+
+export interface Favorites {
+  items: FavoritesItem[];
+  itemCount: number;
+}
+
+export interface FavoritesContextType {
+  favorites: Favorites;
+  addToFavorites: (product: Product) => void;
+  removeFromFavorites: (productId: string) => void;
+  isFavorite: (productId: string) => boolean;
+  clearFavorites: () => void;
+}

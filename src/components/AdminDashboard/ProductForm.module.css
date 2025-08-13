@@ -1,7 +1,8 @@
+
 .formContainer {
-  background: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #f0e9e1;
   padding: 2rem;
   max-width: 800px;
 }
@@ -13,11 +14,11 @@
 }
 
 .error {
-  background: #f8d7da;
-  color: #721c24;
+  background: #fde2e4;
+  color: #9b2226;
   padding: 0.75rem;
-  border-radius: 0.25rem;
-  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  border: 1px solid #fbc4c4;
 }
 
 .field {
@@ -37,23 +38,24 @@
 
 .label {
   font-weight: 600;
-  color: #333;
+  color: #4a4a4a;
   font-size: 0.875rem;
 }
 
 .input, .textarea, .select {
   padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 0.25rem;
+  border: 1px solid #e0dcd7;
+  border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
   transition: border-color 0.2s;
+  background-color: #fdfaf6;
 }
 
 .input:focus, .textarea:focus, .select:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+  border-color: #b5838d;
+  box-shadow: 0 0 0 2px rgba(181, 131, 141, 0.1);
 }
 
 .textarea {
@@ -66,11 +68,11 @@
 }
 
 .previewImage {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   object-fit: cover;
-  border-radius: 0.25rem;
-  border: 1px solid #ddd;
+  border-radius: 6px;
+  border: 1px solid #f0e9e1;
 }
 
 .actions {
@@ -79,34 +81,34 @@
   justify-content: flex-end;
   margin-top: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #f0e9e1;
 }
 
 .cancelButton, .submitButton {
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 0.25rem;
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.2s;
 }
 
 .cancelButton {
-  background: #6c757d;
+  background: #c0c0c0;
   color: white;
 }
 
 .cancelButton:hover:not(:disabled) {
-  background: #545b62;
+  background: #a9a9a9;
 }
 
 .submitButton {
-  background: #28a745;
+  background: #6d6875;
   color: white;
 }
 
 .submitButton:hover:not(:disabled) {
-  background: #218838;
+  background: #5a5460;
 }
 
 .cancelButton:disabled, .submitButton:disabled {
@@ -123,11 +125,11 @@
 }
 
 .addImageButton {
-  background: #007bff;
+  background: #b5838d;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
@@ -135,7 +137,7 @@
 }
 
 .addImageButton:hover {
-  background: #0056b3;
+  background: #a3707d;
 }
 
 .imageInput {
@@ -153,11 +155,11 @@
 }
 
 .removeImageButton {
-  background: #dc3545;
+  background: #ffb4a2;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
@@ -166,8 +168,9 @@
 }
 
 .removeImageButton:hover {
-  background: #c82333;
+  background: #f7a399;
 }
+
 
 @media (max-width: 768px) {
   .row {

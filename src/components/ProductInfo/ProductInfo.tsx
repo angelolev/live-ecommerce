@@ -3,6 +3,8 @@ import { Button } from '../Button/Button';
 import { SizeSelector } from '../SizeSelector/SizeSelector';
 import { ColorPicker } from '../ColorPicker/ColorPicker';
 import { useCart } from '../../hooks/useCart';
+import { useFavorites } from '../../hooks/useFavorites';
+import HeartIcon from '../icons/HeartIcon';
 import type { Product as CartProduct } from '../../types/product';
 import { formatPrice } from '../../productDetailMockData';
 import styles from './ProductInfo.module.css';
@@ -30,6 +32,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const { addToCart } = useCart();
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {
@@ -55,6 +58,28 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     alert('¡Añadido al carrito! Haga clic en Aceptar para continuar comprando.');
   };
 
+  const handleFavoriteToggle = () => {
+    // Convert the product detail product to cart product format for favorites
+    const favoriteProduct: CartProduct = {
+      id: product.id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      images: product.images || [],
+      category: 'General',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id);
+    } else {
+      addToFavorites(favoriteProduct);
+    }
+  };
+
+  const isProductFavorite = isFavorite(product.id);
+
   return (
     <div className={styles.productInfo}>
       <h1 className={styles.title}>{product.name}</h1>
@@ -75,14 +100,28 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
         onColorSelect={setSelectedColor}
       />
       
-      <Button
-        variant="primary"
-        size="medium"
-        onClick={handleAddToCart}
-        className={styles.addToCartButton}
-      >
-        Añadir al carrito
-      </Button>
+      <div className={styles.buttonsContainer}>
+        <Button
+          variant="primary"
+          size="medium"
+          onClick={handleAddToCart}
+          className={styles.addToCartButton}
+        >
+          Añadir al carrito
+        </Button>
+        
+        <button
+          onClick={handleFavoriteToggle}
+          className={`${styles.favoriteButton} ${isProductFavorite ? styles.favoriteActive : ''}`}
+          title={isProductFavorite ? 'Eliminar de favoritos' : 'Añadir a favoritos'}
+        >
+          <HeartIcon 
+            width={20} 
+            height={20} 
+            color={isProductFavorite ? '#dc2626' : '#171212'} 
+          />
+        </button>
+      </div>
     </div>
   );
 };

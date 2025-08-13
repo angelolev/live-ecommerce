@@ -5,12 +5,14 @@ import HeartIcon from '../icons/HeartIcon';
 import CartIcon from '../icons/CartIcon';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { useCart } from '../../hooks/useCart';
+import { useFavorites } from '../../hooks/useFavorites';
 import styles from './Header.module.css';
 
 const menuItems = ['Novedades', 'Hombre', 'Mujer', 'Accesorios', 'Ofertas'];
 
 export const Header: React.FC = () => {
   const { cart } = useCart();
+  const { favorites } = useFavorites();
 
   return (
     <header className={styles.header}>
@@ -34,9 +36,12 @@ export const Header: React.FC = () => {
         <div className={styles.rightSection}>
           <SearchBar />
           <div className={styles.actions}>
-            <button className={styles.actionButton}>
+            <Link to="/favorites" className={styles.actionButton}>
               <HeartIcon width={20} height={20} color="#171212" />
-            </button>
+              {favorites.itemCount > 0 && (
+                <span className={styles.cartBadge}>{favorites.itemCount}</span>
+              )}
+            </Link>
             <Link to="/cart" className={styles.cartButton}>
               <CartIcon width={20} height={20} color="#171212" />
               {cart.itemCount > 0 && (

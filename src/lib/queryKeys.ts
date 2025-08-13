@@ -22,6 +22,17 @@ export const queryKeys = {
     byCategory: (categoryName: string, filters?: Omit<ProductFilters, 'category'>) => 
       [...queryKeys.products.lists(), { category: categoryName, ...filters }] as const,
     featured: () => [...queryKeys.products.all, 'featured'] as const,
+    search: (searchTerm: string) => [...queryKeys.products.all, 'search', searchTerm] as const,
+  },
+
+  // Hero Banners
+  heroBanners: {
+    all: ['heroBanners'] as const,
+    lists: () => [...queryKeys.heroBanners.all, 'list'] as const,
+    list: () => [...queryKeys.heroBanners.lists()] as const,
+    details: () => [...queryKeys.heroBanners.all, 'detail'] as const,
+    detail: (id: string) => [...queryKeys.heroBanners.details(), id] as const,
+    active: () => [...queryKeys.heroBanners.all, 'active'] as const,
   },
 } as const;
 
@@ -30,3 +41,4 @@ export const invalidateCategories = () => queryKeys.categories.all;
 export const invalidateProducts = () => queryKeys.products.all;
 export const invalidateProductsByCategory = (categoryName: string) => 
   [...queryKeys.products.lists(), { category: categoryName }] as const;
+export const invalidateHeroBanners = () => queryKeys.heroBanners.all;

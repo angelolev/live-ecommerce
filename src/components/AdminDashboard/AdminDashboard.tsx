@@ -4,30 +4,37 @@ import { ProductList } from './ProductList';
 import { ProductForm } from './ProductForm';
 import { CategoryList } from './CategoryList';
 import { CategoryForm } from './CategoryForm';
-import { useProducts, useCategories } from '../../hooks/queries';
-import type { Product, Category } from '../../types/product';
+import { HeroBannerList } from './HeroBannerList';
+import { HeroBannerForm } from './HeroBannerForm';
+import { useProducts, useCategories, useHeroBanners } from '../../hooks/queries';
+import type { Product, Category, HeroBanner } from '../../types/product';
 import styles from './AdminDashboard.module.css';
 
-type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit';
-type Section = 'products' | 'categories';
+type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit' | 'hero-banners-list' | 'hero-banners-add' | 'hero-banners-edit';
+type Section = 'products' | 'categories' | 'hero-banners';
 
 export const AdminDashboard: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('products-list');
   const [currentSection, setCurrentSection] = useState<Section>('products');
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+  const [editingHeroBanner, setEditingHeroBanner] = useState<HeroBanner | null>(null);
   const { data: products = [], isLoading: productsLoading, error: productsError, refetch: refetchProducts } = useProducts();
   const { data: categories = [], isLoading: categoriesLoading, error: categoriesError, refetch: refetchCategories } = useCategories();
+  const { data: heroBanners = [], isLoading: heroBannersLoading, error: heroBannersError, refetch: refetchHeroBanners } = useHeroBanners();
 
   const handleSectionChange = (section: Section) => {
     setCurrentSection(section);
     if (section === 'products') {
       setCurrentView('products-list');
-    } else {
+    } else if (section === 'categories') {
       setCurrentView('categories-list');
+    } else {
+      setCurrentView('hero-banners-list');
     }
     setEditingProduct(null);
     setEditingCategory(null);
+    setEditingHeroBanner(null);
   };
 
   const handleAddProduct = () => {
@@ -62,6 +69,22 @@ export const AdminDashboard: React.FC = () => {
     refetchCategories();
   };
 
+  const handleAddHeroBanner = () => {
+    setCurrentView('hero-banners-add');
+    setEditingHeroBanner(null);
+  };
+
+  const handleEditHeroBanner = (heroBanner: HeroBanner) => {
+    setCurrentView('hero-banners-edit');
+    setEditingHeroBanner(heroBanner);
+  };
+
+  const handleBackToHeroBannersList = () => {
+    setCurrentView('hero-banners-list');
+    setEditingHeroBanner(null);
+    refetchHeroBanners();
+  };
+
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
@@ -90,6 +113,14 @@ export const AdminDashboard: React.FC = () => {
                     onClick={() => handleSectionChange('categories')}
                   >
                     Categorías
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={`${styles.navButton} ${currentSection === 'hero-banners' ? styles.active : ''}`}
+                    onClick={() => handleSectionChange('hero-banners')}
+                  >
+                    Hero Banner
                   </button>
                 </li>
               </ul>
@@ -178,6 +209,49 @@ export const AdminDashboard: React.FC = () => {
                     category={editingCategory}
                     onSuccess={handleBackToCategoriesList}
                     onCancel={handleBackToCategoriesList}
+                  />
+                </div>
+              )}
+
+              {/* Hero Banners Section */}
+              {currentView === 'hero-banners-list' && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>Gestión de Hero Banner</h2>
+                    <button 
+                      className={styles.addButton}
+                      onClick={handleAddHeroBanner}
+                    >
+                      Añadir Nuevo Hero Banner
+                    </button>
+                  </div>
+                  
+                  <HeroBannerList
+                    heroBanners={heroBanners}
+                    loading={heroBannersLoading}
+                    error={heroBannersError?.message || null}
+                    onEdit={handleEditHeroBanner}
+                    onRefresh={refetchHeroBanners}
+                  />
+                </div>
+              )}
+
+              {(currentView === 'hero-banners-add' || currentView === 'hero-banners-edit') && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>{currentView === 'hero-banners-add' ? 'Añadir Nuevo Hero Banner' : 'Editar Hero Banner'}</h2>
+                    <button 
+                      className={styles.backButton}
+                      onClick={handleBackToHeroBannersList}
+                    >
+                      ← Volver a la Lista
+                    </button>
+                  </div>
+                  
+                  <HeroBannerForm
+                    heroBanner={editingHeroBanner}
+                    onSuccess={handleBackToHeroBannersList}
+                    onCancel={handleBackToHeroBannersList}
                   />
                 </div>
               )}

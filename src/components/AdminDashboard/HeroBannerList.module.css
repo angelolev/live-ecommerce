@@ -1,4 +1,4 @@
-.container {
+.listContainer {
   padding: 1rem 0;
 }
 
@@ -9,16 +9,20 @@
   font-size: 1.1rem;
 }
 
-.error {
+.errorContainer {
   text-align: center;
   padding: 3rem;
+}
+
+.error {
   background: #fde2e4;
   border-radius: 8px;
   color: #9b2226;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .retryButton {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
   background: #9b2226;
   color: white;
@@ -32,7 +36,7 @@
   background: #800f2f;
 }
 
-.empty {
+.emptyState {
   text-align: center;
   padding: 3rem;
   color: #6d6875;
@@ -41,7 +45,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 1.5rem;
 }
 
@@ -58,41 +62,88 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.imageContainer {
-  width: 100%;
-  height: 150px;
-  overflow: hidden;
+.cardHeader {
+  padding: 1.5rem 1.5rem 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
-.image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.2s;
-}
-
-.card:hover .image {
-  transform: scale(1.05);
-}
-
-.content {
-  padding: 1.5rem;
-}
-
-.name {
-  margin: 0 0 0.5rem 0;
+.cardTitle {
+  margin: 0;
   font-size: 1.25rem;
   font-weight: 600;
   color: #4a4a4a;
+  flex: 1;
 }
 
-.date {
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.activeBadge {
+  background: #d4edda;
+  color: #155724;
+}
+
+.inactiveBadge {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.cardContent {
+  padding: 0 1.5rem 1rem;
+}
+
+.cardSubtitle {
   margin: 0 0 1rem 0;
+  color: #6d6875;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.cardDetails {
+  margin-bottom: 1rem;
+}
+
+.detail {
+  margin-bottom: 0.5rem;
   font-size: 0.875rem;
   color: #6d6875;
 }
 
-.actions {
+.detail strong {
+  color: #4a4a4a;
+}
+
+.imagePreview {
+  margin-top: 0.5rem;
+}
+
+.previewImage {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #f0e9e1;
+}
+
+.cardMeta {
+  margin-bottom: 1rem;
+}
+
+.cardMeta small {
+  color: #6d6875;
+  font-size: 0.75rem;
+}
+
+.cardActions {
+  padding: 0 1.5rem 1.5rem;
   display: flex;
   gap: 0.75rem;
 }
@@ -125,8 +176,13 @@
   transition: background-color 0.2s;
 }
 
-.deleteButton:hover {
+.deleteButton:hover:not(:disabled) {
   background: #f7a399;
+}
+
+.deleteButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {
@@ -134,7 +190,13 @@
     grid-template-columns: 1fr;
   }
   
-  .actions {
+  .cardActions {
     flex-direction: column;
+  }
+  
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
