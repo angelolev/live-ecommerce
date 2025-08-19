@@ -6,13 +6,42 @@ import CartIcon from '../icons/CartIcon';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { useCart } from '../../hooks/useCart';
 import { useFavorites } from '../../hooks/useFavorites';
+import { useEnabledWebsiteNav } from '../../hooks/queries';
 import styles from './Header.module.css';
-
-const menuItems = ['Novedades', 'Hombre', 'Mujer', 'Accesorios', 'Ofertas'];
 
 export const Header: React.FC = () => {
   const { cart } = useCart();
   const { favorites } = useFavorites();
+  const { data: navItems = [], isLoading: navLoading } = useEnabledWebsiteNav();
+
+  const renderNavItem = (item: any) => {
+    const { title, url, type, openInNewTab } = item;
+    
+    if (type === 'external') {
+      return (
+        <a
+          key={item.id}
+          href={url}
+          className={styles.navItem}
+          target={openInNewTab ? '_blank' : '_self'}
+          rel={openInNewTab ? 'noopener noreferrer' : undefined}
+        >
+          {title}
+        </a>
+      );
+    }
+    
+    // For internal and category links, use React Router Link
+    return (
+      <Link
+        key={item.id}
+        to={url}
+        className={styles.navItem}
+      >
+        {title}
+      </Link>
+    );
+  };
 
   return (
     <header className={styles.header}>
@@ -23,11 +52,7 @@ export const Header: React.FC = () => {
             <span className={styles.logoText}>Shopr</span>
           </Link>
           <nav className={styles.nav}>
-            {menuItems.map((item) => (
-              <a key={item} href="#" className={styles.navItem}>
-                {item}
-              </a>
-            ))}
+            {!navLoading && navItems.map(renderNavItem)}
             <Link to="/admin" className={styles.navItem}>
               Admin
             </Link>

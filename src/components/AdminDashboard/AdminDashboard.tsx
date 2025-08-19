@@ -8,12 +8,14 @@ import { HeroBannerList } from './HeroBannerList';
 import { HeroBannerForm } from './HeroBannerForm';
 import { CountdownTimerList } from './CountdownTimerList';
 import { CountdownTimerForm } from './CountdownTimerForm';
-import { useProducts, useCategories, useHeroBanners, useCountdownTimers } from '../../hooks/queries';
-import type { Product, Category, HeroBanner, CountdownTimer } from '../../types/product';
+import { WebsiteNavList } from './WebsiteNavList';
+import { WebsiteNavForm } from './WebsiteNavForm';
+import { useProducts, useCategories, useHeroBanners, useCountdownTimers, useWebsiteNav } from '../../hooks/queries';
+import type { Product, Category, HeroBanner, CountdownTimer, WebsiteNavItem } from '../../types/product';
 import styles from './AdminDashboard.module.css';
 
-type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit' | 'hero-banners-list' | 'hero-banners-add' | 'hero-banners-edit' | 'countdown-timers-list' | 'countdown-timers-add' | 'countdown-timers-edit';
-type Section = 'products' | 'categories' | 'hero-banners' | 'countdown-timers';
+type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit' | 'hero-banners-list' | 'hero-banners-add' | 'hero-banners-edit' | 'countdown-timers-list' | 'countdown-timers-add' | 'countdown-timers-edit' | 'website-nav-list' | 'website-nav-add' | 'website-nav-edit';
+type Section = 'products' | 'categories' | 'hero-banners' | 'countdown-timers' | 'website-nav';
 
 export const AdminDashboard: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('products-list');
@@ -22,26 +24,43 @@ export const AdminDashboard: React.FC = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editingHeroBanner, setEditingHeroBanner] = useState<HeroBanner | null>(null);
   const [editingCountdownTimer, setEditingCountdownTimer] = useState<CountdownTimer | null>(null);
+  const [editingWebsiteNavItem, setEditingWebsiteNavItem] = useState<WebsiteNavItem | null>(null);
   const { data: products = [], isLoading: productsLoading, error: productsError, refetch: refetchProducts } = useProducts();
   const { data: categories = [], isLoading: categoriesLoading, error: categoriesError, refetch: refetchCategories } = useCategories();
   const { data: heroBanners = [], isLoading: heroBannersLoading, error: heroBannersError, refetch: refetchHeroBanners } = useHeroBanners();
   const { data: countdownTimers = [], isLoading: countdownTimersLoading, error: countdownTimersError, refetch: refetchCountdownTimers } = useCountdownTimers();
+  const { data: websiteNavItems = [], isLoading: websiteNavLoading, error: websiteNavError, refetch: refetchWebsiteNav } = useWebsiteNav();
 
   const handleSectionChange = (section: Section) => {
     setCurrentSection(section);
-    if (section === 'products') {
-      setCurrentView('products-list');
-    } else if (section === 'categories') {
-      setCurrentView('categories-list');
-    } else if (section === 'countdown-timers') {
-      setCurrentView('countdown-timers-list');
-    } else {
-      setCurrentView('hero-banners-list');
+    
+    // Set the appropriate view based on section
+    switch (section) {
+      case 'products':
+        setCurrentView('products-list');
+        break;
+      case 'categories':
+        setCurrentView('categories-list');
+        break;
+      case 'hero-banners':
+        setCurrentView('hero-banners-list');
+        break;
+      case 'countdown-timers':
+        setCurrentView('countdown-timers-list');
+        break;
+      case 'website-nav':
+        setCurrentView('website-nav-list');
+        break;
+      default:
+        setCurrentView('products-list');
     }
+    
+    // Clear all editing states
     setEditingProduct(null);
     setEditingCategory(null);
     setEditingHeroBanner(null);
     setEditingCountdownTimer(null);
+    setEditingWebsiteNavItem(null);
   };
 
   const handleAddProduct = () => {
@@ -108,6 +127,22 @@ export const AdminDashboard: React.FC = () => {
     refetchCountdownTimers();
   };
 
+  const handleAddWebsiteNavItem = () => {
+    setCurrentView('website-nav-add');
+    setEditingWebsiteNavItem(null);
+  };
+
+  const handleEditWebsiteNavItem = (item: WebsiteNavItem) => {
+    setCurrentView('website-nav-edit');
+    setEditingWebsiteNavItem(item);
+  };
+
+  const handleBackToWebsiteNavList = () => {
+    setCurrentView('website-nav-list');
+    setEditingWebsiteNavItem(null);
+    refetchWebsiteNav();
+  };
+
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
@@ -152,6 +187,14 @@ export const AdminDashboard: React.FC = () => {
                     onClick={() => handleSectionChange('countdown-timers')}
                   >
                     Contador de Tiempo
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={`${styles.navButton} ${currentSection === 'website-nav' ? styles.active : ''}`}
+                    onClick={() => handleSectionChange('website-nav')}
+                  >
+                    🌐 Navegación Web
                   </button>
                 </li>
               </ul>
@@ -326,6 +369,49 @@ export const AdminDashboard: React.FC = () => {
                     timer={editingCountdownTimer}
                     onSuccess={handleBackToCountdownTimersList}
                     onCancel={handleBackToCountdownTimersList}
+                  />
+                </div>
+              )}
+
+              {/* Website Navigation Section */}
+              {currentView === 'website-nav-list' && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>Navegación del Sitio Web</h2>
+                    <button 
+                      className={styles.addButton}
+                      onClick={handleAddWebsiteNavItem}
+                    >
+                      Añadir Nuevo Enlace
+                    </button>
+                  </div>
+                  
+                  <WebsiteNavList
+                    navItems={websiteNavItems}
+                    loading={websiteNavLoading}
+                    error={websiteNavError?.message || null}
+                    onEdit={handleEditWebsiteNavItem}
+                    onRefresh={refetchWebsiteNav}
+                  />
+                </div>
+              )}
+
+              {(currentView === 'website-nav-add' || currentView === 'website-nav-edit') && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>{currentView === 'website-nav-add' ? 'Añadir Nuevo Enlace' : 'Editar Enlace'}</h2>
+                    <button 
+                      className={styles.backButton}
+                      onClick={handleBackToWebsiteNavList}
+                    >
+                      ← Volver a la Lista
+                    </button>
+                  </div>
+                  
+                  <WebsiteNavForm
+                    navItem={editingWebsiteNavItem}
+                    onSuccess={handleBackToWebsiteNavList}
+                    onCancel={handleBackToWebsiteNavList}
                   />
                 </div>
               )}

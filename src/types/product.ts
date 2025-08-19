@@ -108,3 +108,24 @@ export interface CountdownTimerFormData {
   endDate: Date;
   isActive: boolean;
 }
+
+export interface WebsiteNavItem {
+  id: string;
+  title: string;
+  url: string;
+  type: 'internal' | 'external' | 'category';
+  enabled: boolean;
+  order: number;
+  openInNewTab: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface WebsiteNavItemFormData {
+  title: string;
+  url: string;
+  type: 'internal' | 'external' | 'category';
+  enabled: boolean;
+  order: number;
+  openInNewTab: boolean;
+}
