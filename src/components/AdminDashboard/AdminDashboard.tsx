@@ -6,12 +6,14 @@ import { CategoryList } from './CategoryList';
 import { CategoryForm } from './CategoryForm';
 import { HeroBannerList } from './HeroBannerList';
 import { HeroBannerForm } from './HeroBannerForm';
-import { useProducts, useCategories, useHeroBanners } from '../../hooks/queries';
-import type { Product, Category, HeroBanner } from '../../types/product';
+import { CountdownTimerList } from './CountdownTimerList';
+import { CountdownTimerForm } from './CountdownTimerForm';
+import { useProducts, useCategories, useHeroBanners, useCountdownTimers } from '../../hooks/queries';
+import type { Product, Category, HeroBanner, CountdownTimer } from '../../types/product';
 import styles from './AdminDashboard.module.css';
 
-type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit' | 'hero-banners-list' | 'hero-banners-add' | 'hero-banners-edit';
-type Section = 'products' | 'categories' | 'hero-banners';
+type View = 'products-list' | 'products-add' | 'products-edit' | 'categories-list' | 'categories-add' | 'categories-edit' | 'hero-banners-list' | 'hero-banners-add' | 'hero-banners-edit' | 'countdown-timers-list' | 'countdown-timers-add' | 'countdown-timers-edit';
+type Section = 'products' | 'categories' | 'hero-banners' | 'countdown-timers';
 
 export const AdminDashboard: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>('products-list');
@@ -19,9 +21,11 @@ export const AdminDashboard: React.FC = () => {
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [editingHeroBanner, setEditingHeroBanner] = useState<HeroBanner | null>(null);
+  const [editingCountdownTimer, setEditingCountdownTimer] = useState<CountdownTimer | null>(null);
   const { data: products = [], isLoading: productsLoading, error: productsError, refetch: refetchProducts } = useProducts();
   const { data: categories = [], isLoading: categoriesLoading, error: categoriesError, refetch: refetchCategories } = useCategories();
   const { data: heroBanners = [], isLoading: heroBannersLoading, error: heroBannersError, refetch: refetchHeroBanners } = useHeroBanners();
+  const { data: countdownTimers = [], isLoading: countdownTimersLoading, error: countdownTimersError, refetch: refetchCountdownTimers } = useCountdownTimers();
 
   const handleSectionChange = (section: Section) => {
     setCurrentSection(section);
@@ -29,12 +33,15 @@ export const AdminDashboard: React.FC = () => {
       setCurrentView('products-list');
     } else if (section === 'categories') {
       setCurrentView('categories-list');
+    } else if (section === 'countdown-timers') {
+      setCurrentView('countdown-timers-list');
     } else {
       setCurrentView('hero-banners-list');
     }
     setEditingProduct(null);
     setEditingCategory(null);
     setEditingHeroBanner(null);
+    setEditingCountdownTimer(null);
   };
 
   const handleAddProduct = () => {
@@ -85,6 +92,22 @@ export const AdminDashboard: React.FC = () => {
     refetchHeroBanners();
   };
 
+  const handleAddCountdownTimer = () => {
+    setCurrentView('countdown-timers-add');
+    setEditingCountdownTimer(null);
+  };
+
+  const handleEditCountdownTimer = (timer: CountdownTimer) => {
+    setCurrentView('countdown-timers-edit');
+    setEditingCountdownTimer(timer);
+  };
+
+  const handleBackToCountdownTimersList = () => {
+    setCurrentView('countdown-timers-list');
+    setEditingCountdownTimer(null);
+    refetchCountdownTimers();
+  };
+
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
@@ -121,6 +144,14 @@ export const AdminDashboard: React.FC = () => {
                     onClick={() => handleSectionChange('hero-banners')}
                   >
                     Hero Banner
+                  </button>
+                </li>
+                <li>
+                  <button
+                    className={`${styles.navButton} ${currentSection === 'countdown-timers' ? styles.active : ''}`}
+                    onClick={() => handleSectionChange('countdown-timers')}
+                  >
+                    Contador de Tiempo
                   </button>
                 </li>
               </ul>
@@ -252,6 +283,49 @@ export const AdminDashboard: React.FC = () => {
                     heroBanner={editingHeroBanner}
                     onSuccess={handleBackToHeroBannersList}
                     onCancel={handleBackToHeroBannersList}
+                  />
+                </div>
+              )}
+
+              {/* Countdown Timers Section */}
+              {currentView === 'countdown-timers-list' && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>Gestión de Contadores de Tiempo</h2>
+                    <button 
+                      className={styles.addButton}
+                      onClick={handleAddCountdownTimer}
+                    >
+                      Añadir Nuevo Contador
+                    </button>
+                  </div>
+                  
+                  <CountdownTimerList
+                    countdownTimers={countdownTimers}
+                    loading={countdownTimersLoading}
+                    error={countdownTimersError?.message || null}
+                    onEdit={handleEditCountdownTimer}
+                    onRefresh={refetchCountdownTimers}
+                  />
+                </div>
+              )}
+
+              {(currentView === 'countdown-timers-add' || currentView === 'countdown-timers-edit') && (
+                <div>
+                  <div className={styles.toolbar}>
+                    <h2>{currentView === 'countdown-timers-add' ? 'Añadir Nuevo Contador' : 'Editar Contador'}</h2>
+                    <button 
+                      className={styles.backButton}
+                      onClick={handleBackToCountdownTimersList}
+                    >
+                      ← Volver a la Lista
+                    </button>
+                  </div>
+                  
+                  <CountdownTimerForm
+                    timer={editingCountdownTimer}
+                    onSuccess={handleBackToCountdownTimersList}
+                    onCancel={handleBackToCountdownTimersList}
                   />
                 </div>
               )}

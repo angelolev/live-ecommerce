@@ -91,3 +91,20 @@ export interface FavoritesContextType {
   isFavorite: (productId: string) => boolean;
   clearFavorites: () => void;
 }
+
+export interface CountdownTimer {
+  id: string;
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CountdownTimerFormData {
+  title: string;
+  startDate: Date;
+  endDate: Date;
+  isActive: boolean;
+}

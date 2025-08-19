@@ -34,6 +34,17 @@ export const queryKeys = {
     detail: (id: string) => [...queryKeys.heroBanners.details(), id] as const,
     active: () => [...queryKeys.heroBanners.all, 'active'] as const,
   },
+
+  // Countdown Timers
+  countdownTimers: {
+    all: ['countdownTimers'] as const,
+    lists: () => [...queryKeys.countdownTimers.all, 'list'] as const,
+    list: () => [...queryKeys.countdownTimers.lists()] as const,
+    details: () => [...queryKeys.countdownTimers.all, 'detail'] as const,
+    detail: (id: string) => [...queryKeys.countdownTimers.details(), id] as const,
+    byId: (id: string) => [...queryKeys.countdownTimers.details(), id] as const,
+    active: () => [...queryKeys.countdownTimers.all, 'active'] as const,
+  },
 } as const;
 
 // Helper functions for cache invalidation
@@ -42,3 +53,4 @@ export const invalidateProducts = () => queryKeys.products.all;
 export const invalidateProductsByCategory = (categoryName: string) => 
   [...queryKeys.products.lists(), { category: categoryName }] as const;
 export const invalidateHeroBanners = () => queryKeys.heroBanners.all;
+export const invalidateCountdownTimers = () => queryKeys.countdownTimers.all;
