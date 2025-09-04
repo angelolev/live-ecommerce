@@ -70,6 +70,7 @@ export const ProductDetailWrapper: React.FC = () => {
     description: product.description,
     price: product.price,
     images: product.images,
+    category: product.category,
     availableSizes: ["XS", "S", "M", "L", "XL"] as const,
     availableColors: [
       { name: "negro" as const, hex: "#000000" },

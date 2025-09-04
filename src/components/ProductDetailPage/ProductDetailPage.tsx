@@ -6,6 +6,7 @@ import { ProductImageGallery } from '../ProductImageGallery/ProductImageGallery'
 import { ProductInfo } from '../ProductInfo/ProductInfo';
 import { RatingBreakdown } from '../RatingBreakdown/RatingBreakdown';
 import { ReviewCard } from '../ReviewCard/ReviewCard';
+import { RelatedProducts } from '../RelatedProducts/RelatedProducts';
 import styles from './ProductDetailPage.module.css';
 
 interface ProductColor {
@@ -23,6 +24,7 @@ interface Product {
   availableColors: ProductColor[];
   rating: number;
   reviewCount: number;
+  category: string;
 }
 
 interface RatingBreakdownItem {
@@ -94,6 +96,11 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
             ))}
           </div>
         </div>
+
+        <RelatedProducts
+          currentProductId={product.id}
+          category={product.category}
+        />
       </div>
     </div>
   );
