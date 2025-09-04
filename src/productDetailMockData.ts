@@ -14,6 +14,7 @@ export const mockProduct = {
   description: "Este elegante vestido maxi presenta un vibrante estampado floral, perfecto para cualquier ocasión. Hecho de tela ligera, ofrece tanto estilo como comodidad.",
   price: 79.99,
   images: mockProductImages,
+  category: "vestidos",
   availableSizes: ["XS", "S", "M", "L"] as const,
   availableColors: [
     { name: "amarillo" as const, hex: "#ffd600" },

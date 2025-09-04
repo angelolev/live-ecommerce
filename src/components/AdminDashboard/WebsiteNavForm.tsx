@@ -24,7 +24,14 @@ export const WebsiteNavForm: React.FC<WebsiteNavFormProps> = ({
     openInNewTab: false,
   });
 
-  const [errors, setErrors] = useState<Partial<WebsiteNavItemFormData>>({});
+  const [errors, setErrors] = useState<{
+    title?: string;
+    url?: string;
+    order?: string;
+    type?: string;
+    enabled?: string;
+    openInNewTab?: string;
+  }>({});
   const { createWebsiteNavItem, updateWebsiteNavItem } = useWebsiteNavMutations();
 
   useEffect(() => {
@@ -41,7 +48,14 @@ export const WebsiteNavForm: React.FC<WebsiteNavFormProps> = ({
   }, [navItem]);
 
   const validateForm = (): boolean => {
-    const newErrors: Partial<WebsiteNavItemFormData> = {};
+    const newErrors: {
+      title?: string;
+      url?: string;
+      order?: string;
+      type?: string;
+      enabled?: string;
+      openInNewTab?: string;
+    } = {};
 
     if (!formData.title.trim()) {
       newErrors.title = 'El título es requerido';
