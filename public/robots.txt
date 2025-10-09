@@ -1,0 +1,29 @@
+# robots.txt for Live E-commerce
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and authentication pages
+Disallow: /admin
+Disallow: /login
+
+# Disallow cart and checkout (no SEO value)
+Disallow: /cart
+Disallow: /checkout
+
+# Allow access to CSS, JS, and images
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+
+# Sitemap location
+Sitemap: https://live-ecommerce.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1

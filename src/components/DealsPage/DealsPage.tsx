@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { Header } from "../Header/Header";
 import { FilterSidebar } from "../FilterSidebar/FilterSidebar";
 import { ProductGrid } from "../ProductGrid/ProductGrid";
+import { SEOHead } from "../SEOHead/SEOHead";
 import { useDealsProducts } from "../../hooks/queries/useProducts";
+import { generateOfferCatalogSchema, generateBreadcrumbSchema } from "../../utils/structuredData";
 import type { ProductFilters } from "../../types/product";
 import styles from "./DealsPage.module.css";
 
@@ -95,8 +97,27 @@ export const DealsPage: React.FC = () => {
     setFilters({ sortBy: "newest" });
   };
 
+  // Generate structured data
+  const offerCatalogSchema = products.length > 0
+    ? generateOfferCatalogSchema(products)
+    : undefined;
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { label: 'Inicio', href: '/' },
+    { label: 'Ofertas', href: '/ofertas' }
+  ]);
+
+  const structuredData = [offerCatalogSchema, breadcrumbSchema].filter(Boolean);
+
   return (
     <div className={styles.page}>
+      <SEOHead
+        title="Ofertas Especiales"
+        description="Descubre nuestras mejores ofertas y aprovecha los descuentos especiales. Encuentra productos en oferta con envío rápido y devoluciones gratis."
+        keywords="ofertas, descuentos, rebajas, ofertas especiales, promociones, compras online, ofertas moda"
+        url="/ofertas"
+        structuredData={structuredData.length > 0 ? structuredData : undefined}
+      />
       <Header />
 
       <main className={styles.main}>

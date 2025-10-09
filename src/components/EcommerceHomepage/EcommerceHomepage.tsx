@@ -6,7 +6,9 @@ import { CountdownTimer } from "../CountdownTimer/CountdownTimer";
 import { CategoryCard } from "../CategoryCard/CategoryCard";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
+import { SEOHead } from "../SEOHead/SEOHead";
 import { useCategories, useFeaturedProducts } from "../../hooks/queries";
+import { generateItemListSchema } from "../../utils/structuredData";
 import styles from "./EcommerceHomepage.module.css";
 
 export const EcommerceHomepage: React.FC = () => {
@@ -26,8 +28,20 @@ export const EcommerceHomepage: React.FC = () => {
     navigate(`/product/${productId}`);
   };
 
+  // Generate structured data for featured products
+  const structuredData = products.length > 0
+    ? generateItemListSchema(products, 'Ofertas Especiales')
+    : undefined;
+
   return (
     <div className={styles.homepage}>
+      <SEOHead
+        title="Inicio"
+        description="Descubre las mejores ofertas en moda, accesorios, zapatos y más. Compra online con envío rápido y devoluciones gratis. ¡Ofertas especiales todos los días!"
+        keywords="moda online, tienda de ropa, accesorios, zapatos, ofertas, compras online, e-commerce, categorías destacadas"
+        url="/"
+        structuredData={structuredData}
+      />
       <Header />
 
       <main className={styles.main}>

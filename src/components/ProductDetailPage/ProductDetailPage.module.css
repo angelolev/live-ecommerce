@@ -37,6 +37,74 @@
   margin-top: 32px;
 }
 
+.loginPrompt {
+  background: var(--card-background, #ffffff);
+  border: 1px solid var(--border-color, #e5e7eb);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.loginMessage {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0 0 1rem 0;
+}
+
+.loginButton {
+  padding: 0.75rem 1.5rem;
+  background: var(--primary-color, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loginButton:hover {
+  background: var(--primary-color-dark, #2563eb);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.loginButton:active {
+  transform: translateY(0);
+}
+
+.noReviews {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  padding: 2rem;
+  background: var(--card-background, #f9fafb);
+  border-radius: 8px;
+}
+
+.alreadyReviewedMessage {
+  background: var(--card-background, #f0fdf4);
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.messageText {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #171212;
+  margin: 0 0 0.5rem 0;
+}
+
+.messageSubtext {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 24px 20px;
