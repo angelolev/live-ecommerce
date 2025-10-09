@@ -1,7 +1,25 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useReducer, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { Favorites, FavoritesItem, FavoritesContextType, Product } from '../types/product';
 import { v4 as uuidv4 } from 'uuid';
+
+// Interface for serialized favorites item from localStorage
+interface SerializedFavoritesItem {
+  id: string;
+  product: {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    offerPrice?: number;
+    images: string[];
+    category: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  addedAt: string;
+}
 
 const initialFavorites: Favorites = {
   items: [],
@@ -71,9 +89,9 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
     const savedFavorites = localStorage.getItem('user-favorites');
     if (savedFavorites) {
       try {
-        const parsedFavorites = JSON.parse(savedFavorites);
+        const parsedFavorites: { items: SerializedFavoritesItem[]; itemCount: number } = JSON.parse(savedFavorites);
         // Convert date strings back to Date objects
-        const itemsWithDates = parsedFavorites.items.map((item: any) => ({
+        const itemsWithDates: FavoritesItem[] = parsedFavorites.items.map((item: SerializedFavoritesItem) => ({
           ...item,
           addedAt: new Date(item.addedAt),
           product: {
@@ -82,12 +100,12 @@ export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }
             updatedAt: new Date(item.product.updatedAt),
           },
         }));
-        dispatch({ 
-          type: 'LOAD_FAVORITES', 
-          payload: { 
-            ...parsedFavorites, 
-            items: itemsWithDates 
-          } 
+        dispatch({
+          type: 'LOAD_FAVORITES',
+          payload: {
+            ...parsedFavorites,
+            items: itemsWithDates
+          }
         });
       } catch (error) {
         console.error('Failed to load favorites from localStorage:', error);

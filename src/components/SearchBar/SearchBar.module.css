@@ -2,24 +2,51 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background-color: #f5f5f5;
+  background-color: var(--background-secondary, #f5f5f5);
   border-radius: 12px;
   padding: 12px 16px;
-  width: 160px;
-  border: 1px solid #e5e8eb;
+  width: 100%;
+  max-width: 300px;
+  min-width: 160px;
+  border: 1px solid var(--color-header-border, #e5e8eb);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .input {
   background: transparent;
   border: none;
   outline: none;
-  color: #876363;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--color-text-primary);
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   width: 100%;
 }
 
 .input::placeholder {
-  color: #876363;
+  color: var(--color-text-primary);
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .searchBar {
+    max-width: 200px;
+    min-width: 140px;
+  }
+
+  .input {
+    font-size: 14px;
+  }
+}
+
+/* Mobile - full width in mobile menu */
+@media (max-width: 768px) {
+  .searchBar {
+    max-width: 100%;
+    min-width: unset;
+  }
+
+  .input {
+    font-size: 16px;
+  }
 }

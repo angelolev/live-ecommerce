@@ -39,7 +39,6 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
     product.offerPrice !== undefined &&
     product.offerPrice !== null &&
     product.offerPrice > 0;
-  const displayPrice = hasOffer ? product.offerPrice : product.price;
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedColor) {

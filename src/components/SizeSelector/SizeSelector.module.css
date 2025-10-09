@@ -36,6 +36,6 @@
 
 .sizeButton.selected {
   background-color: var(--color-text-primary);
-  color: #ffffff;
+  color: #171212;
   border-color: var(--color-text-primary);
 }

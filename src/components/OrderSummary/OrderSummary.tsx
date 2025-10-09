@@ -1,12 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../../hooks/useCart';
+import { useAuth } from '../../hooks/useAuth';
 import { Button } from '../Button/Button';
 import styles from './OrderSummary.module.css';
 
 export const OrderSummary: React.FC = () => {
   const { cart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleProceedToCheckout = () => {
+    if (!user) {
+      navigate('/login', { state: { from: '/cart' } });
+      return;
+    }
     // TODO: Implement checkout functionality
     console.log('Proceeding to checkout...');
   };
