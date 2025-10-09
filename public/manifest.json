@@ -1,0 +1,23 @@
+{
+  "name": "Live E-commerce - Tu Tienda Online de Moda",
+  "short_name": "Live E-commerce",
+  "description": "Descubre las mejores ofertas en moda, accesorios, zapatos y más. Compra online con envío rápido.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "lifestyle"],
+  "lang": "es",
+  "dir": "ltr",
+  "scope": "/",
+  "screenshots": []
+}

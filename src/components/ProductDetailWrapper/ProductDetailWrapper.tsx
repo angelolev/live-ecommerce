@@ -1,17 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { ProductDetailPage } from '../ProductDetailPage/ProductDetailPage';
 import { useProduct } from '../../hooks/useProducts';
+import { useAuth } from '../../hooks/useAuth';
+import { addReview, getReviews, calculateAverageRating, calculateRatingBreakdown, hasUserReviewedProduct } from '../../services/reviews';
+import type { Review } from '../../types/review';
 
 export const ProductDetailWrapper: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { product, loading, error } = useProduct(id || '');
+  const { user } = useAuth();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+  const [userHasReviewed, setUserHasReviewed] = useState(false);
+
+  // Load reviews when product ID is available
+  useEffect(() => {
+    const loadReviews = async () => {
+      if (!id) return;
+
+      setLoadingReviews(true);
+      try {
+        const productReviews = await getReviews(id);
+        setReviews(productReviews);
+
+        // Check if current user has already reviewed this product
+        if (user) {
+          const hasReviewed = await hasUserReviewedProduct(id, user.uid);
+          setUserHasReviewed(hasReviewed);
+        }
+      } catch (err) {
+        console.error('Error loading reviews:', err);
+        // Keep reviews as empty array on error
+      } finally {
+        setLoadingReviews(false);
+      }
+    };
+
+    loadReviews();
+  }, [id, user]);
+
+  // Handle adding a new review
+  const handleAddReview = async (rating: number, comment: string) => {
+    if (!user || !id) {
+      throw new Error('User must be logged in to submit a review');
+    }
+
+    const reviewInput = {
+      productId: id,
+      userId: user.uid,
+      userName: user.displayName || 'Usuario Anónimo',
+      userAvatar: user.photoURL || '/images/default-avatar.png',
+      rating,
+      comment
+    };
+
+    // Add review to Firestore
+    await addReview(reviewInput);
+
+    // Reload reviews to show the new one
+    const updatedReviews = await getReviews(id);
+    setReviews(updatedReviews);
+
+    // Update userHasReviewed state
+    setUserHasReviewed(true);
+  };
 
   if (!id) {
     return <Navigate to="/" replace />;
   }
 
-  if (loading) {
+  if (loading || loadingReviews) {
     return (
       <div style={{ 
         display: 'flex', 
@@ -63,63 +122,9 @@ export const ProductDetailWrapper: React.FC = () => {
     return <Navigate to="/" replace />;
   }
 
-  // Mock reviews data
-  const mockReviews = [
-    {
-      id: '1',
-      customerName: 'María González',
-      date: new Date('2024-01-15'),
-      rating: 5,
-      comment: 'Excelente producto, superó mis expectativas. La calidad es muy buena y llegó en perfectas condiciones. Totalmente recomendable.',
-      avatar: 'https://i.pravatar.cc/150?img=1',
-      helpfulCount: 12,
-      notHelpfulCount: 1
-    },
-    {
-      id: '2',
-      customerName: 'Carlos Rodríguez',
-      date: new Date('2024-01-10'),
-      rating: 4,
-      comment: 'Muy buen producto en general. La única observación es que el envío tardó un poco más de lo esperado, pero el artículo es tal como se describe.',
-      avatar: 'https://i.pravatar.cc/150?img=12',
-      helpfulCount: 8,
-      notHelpfulCount: 0
-    },
-    {
-      id: '3',
-      customerName: 'Ana Martínez',
-      date: new Date('2024-01-05'),
-      rating: 5,
-      comment: '¡Me encantó! Justo lo que estaba buscando. La relación calidad-precio es inmejorable. Sin duda volveré a comprar.',
-      avatar: 'https://i.pravatar.cc/150?img=5',
-      helpfulCount: 15,
-      notHelpfulCount: 0
-    }
-  ];
-
-  // Calculate rating breakdown based on mock reviews
-  const calculateRatingBreakdown = (reviews: typeof mockReviews) => {
-    const totalReviews = reviews.length;
-    const starCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
-
-    reviews.forEach(review => {
-      starCounts[review.rating as keyof typeof starCounts]++;
-    });
-
-    return [
-      { stars: 5, percentage: (starCounts[5] / totalReviews) * 100 },
-      { stars: 4, percentage: (starCounts[4] / totalReviews) * 100 },
-      { stars: 3, percentage: (starCounts[3] / totalReviews) * 100 },
-      { stars: 2, percentage: (starCounts[2] / totalReviews) * 100 },
-      { stars: 1, percentage: (starCounts[1] / totalReviews) * 100 }
-    ];
-  };
-
-  // Calculate average rating
-  const averageRating = mockReviews.reduce((sum, review) => sum + review.rating, 0) / mockReviews.length;
-
-  // Rating breakdown
-  const ratingBreakdown = calculateRatingBreakdown(mockReviews);
+  // Calculate average rating and rating breakdown from real reviews
+  const averageRating = reviews.length > 0 ? calculateAverageRating(reviews) : 0;
+  const ratingBreakdown = calculateRatingBreakdown(reviews);
 
   // Create a proper product object with all required fields
   const enhancedProduct = {
@@ -137,14 +142,16 @@ export const ProductDetailWrapper: React.FC = () => {
       { name: "azul" as const, hex: "#0000ff" }
     ],
     rating: averageRating,
-    reviewCount: mockReviews.length
+    reviewCount: reviews.length
   };
 
   return (
     <ProductDetailPage
       product={enhancedProduct}
       ratingBreakdown={ratingBreakdown}
-      reviews={mockReviews}
+      reviews={reviews}
+      onAddReview={handleAddReview}
+      userHasReviewed={userHasReviewed}
     />
   );
 };

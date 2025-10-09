@@ -1,0 +1,58 @@
+.starSelector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.starButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.starButton:hover {
+  transform: scale(1.1);
+}
+
+.starButton:focus {
+  outline: 2px solid var(--primary-color, #3b82f6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.star {
+  transition: all 0.2s ease;
+}
+
+.filled {
+  color: #fbbf24;
+  fill: #fbbf24;
+}
+
+.empty {
+  color: #d1d5db;
+  fill: #d1d5db;
+}
+
+.ratingText {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .empty {
+    color: #4b5563;
+    fill: #4b5563;
+  }
+}

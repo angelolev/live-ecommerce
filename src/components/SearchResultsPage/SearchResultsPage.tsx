@@ -2,7 +2,9 @@ import React from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Header } from '../Header/Header';
 import { ProductGrid } from '../ProductGrid/ProductGrid';
+import { SEOHead } from '../SEOHead/SEOHead';
 import { useSearchProducts } from '../../hooks/queries/useSearchProducts';
+import { generateSearchResultsSchema, generateItemListSchema } from '../../utils/structuredData';
 import styles from './SearchResultsPage.module.css';
 
 export const SearchResultsPage: React.FC = () => {
@@ -16,8 +18,30 @@ export const SearchResultsPage: React.FC = () => {
     navigate(`/product/${productId}`);
   };
 
+  // Generate structured data
+  const searchResultsSchema = searchTerm
+    ? generateSearchResultsSchema(searchTerm, products.length)
+    : undefined;
+
+  const itemListSchema = products.length > 0 && searchTerm
+    ? generateItemListSchema(products, `Resultados de búsqueda para "${searchTerm}"`)
+    : undefined;
+
+  const structuredData = [searchResultsSchema, itemListSchema].filter(Boolean);
+
   return (
     <div className={styles.page}>
+      <SEOHead
+        title={searchTerm ? `Resultados de búsqueda: ${searchTerm}` : 'Búsqueda'}
+        description={
+          searchTerm
+            ? `Encuentra ${products.length} productos relacionados con "${searchTerm}". Compra online con envío rápido.`
+            : 'Busca entre miles de productos. Encuentra lo que necesitas.'
+        }
+        keywords={`búsqueda, ${searchTerm}, productos, tienda online`}
+        url={`/search?q=${encodeURIComponent(searchTerm)}`}
+        structuredData={structuredData.length > 0 ? structuredData : undefined}
+      />
       <Header />
       <main className={styles.main}>
         <div className={styles.container}>

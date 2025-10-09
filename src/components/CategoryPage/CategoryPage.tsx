@@ -3,7 +3,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Header } from '../Header/Header';
 import { FilterSidebar } from '../FilterSidebar/FilterSidebar';
 import { ProductGrid } from '../ProductGrid/ProductGrid';
+import { SEOHead } from '../SEOHead/SEOHead';
 import { useCategories, useProductsByCategory } from '../../hooks/queries';
+import { generateCollectionPageSchema, generateBreadcrumbSchema, generateItemListSchema } from '../../utils/structuredData';
 import type { ProductFilters } from '../../types/product';
 import styles from './CategoryPage.module.css';
 
@@ -87,10 +89,38 @@ export const CategoryPage: React.FC = () => {
     );
   }
 
+  // Generate structured data
+  const collectionPageSchema = currentCategory
+    ? generateCollectionPageSchema(currentCategory.name, `Explora nuestra colección de ${currentCategory.name.toLowerCase()}`)
+    : undefined;
+
+  const breadcrumbSchema = currentCategory
+    ? generateBreadcrumbSchema([
+        { label: 'Inicio', href: '/' },
+        { label: currentCategory.name, href: `/category/${categoryName}` }
+      ])
+    : undefined;
+
+  const itemListSchema = products.length > 0 && currentCategory
+    ? generateItemListSchema(products, currentCategory.name)
+    : undefined;
+
+  const structuredData = [collectionPageSchema, breadcrumbSchema, itemListSchema].filter(Boolean);
+
   return (
     <div className={styles.page}>
+      {currentCategory && (
+        <SEOHead
+          title={currentCategory.name}
+          description={`Explora nuestra colección de ${currentCategory.name.toLowerCase()}. Encuentra los mejores productos con envío rápido y devoluciones gratis.`}
+          keywords={`${currentCategory.name}, comprar ${currentCategory.name}, ${currentCategory.name} online, tienda ${currentCategory.name}`}
+          image={currentCategory.imageUrl}
+          url={`/category/${categoryName}`}
+          structuredData={structuredData}
+        />
+      )}
       <Header />
-      
+
       <main className={styles.main}>
         <div className={styles.container}>
           {/* Breadcrumbs */}
