@@ -1,36 +1,39 @@
-import { 
-  collection, 
-  doc, 
-  getDocs, 
-  getDoc, 
-  addDoc, 
-  updateDoc, 
-  deleteDoc, 
-  query, 
+import {
+  collection,
+  doc,
+  getDocs,
+  getDoc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  query,
   orderBy,
   where,
-  Timestamp 
-} from 'firebase/firestore';
-import { db } from '../lib/firebase';
-import type { Product, ProductFormData } from '../types/product';
+  Timestamp,
+} from "firebase/firestore";
+import { db } from "../lib/firebase";
+import type { Product, ProductFormData } from "../types/product";
 
-const COLLECTION_NAME = 'products';
+const COLLECTION_NAME = "products";
 
 export const productService = {
   async getAllProducts(): Promise<Product[]> {
     try {
-      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const q = query(
+        collection(db, COLLECTION_NAME),
+        orderBy("createdAt", "desc")
+      );
       const querySnapshot = await getDocs(q);
-      
-      return querySnapshot.docs.map(doc => ({
+
+      return querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date(),
         updatedAt: doc.data().updatedAt?.toDate() || new Date(),
       })) as Product[];
     } catch (error) {
-      console.error('Error fetching products:', error);
-      throw new Error('Failed to fetch products');
+      console.error("Error fetching products:", error);
+      throw new Error("Failed to fetch products");
     }
   },
 
@@ -38,7 +41,7 @@ export const productService = {
     try {
       const docRef = doc(db, COLLECTION_NAME, id);
       const docSnap = await getDoc(docRef);
-      
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         return {
@@ -48,11 +51,11 @@ export const productService = {
           updatedAt: data.updatedAt?.toDate() || new Date(),
         } as Product;
       }
-      
+
       return null;
     } catch (error) {
-      console.error('Error fetching product:', error);
-      throw new Error('Failed to fetch product');
+      console.error("Error fetching product:", error);
+      throw new Error("Failed to fetch product");
     }
   },
 
@@ -64,11 +67,11 @@ export const productService = {
         createdAt: now,
         updatedAt: now,
       });
-      
+
       return docRef.id;
     } catch (error) {
-      console.error('Error creating product:', error);
-      throw new Error('Failed to create product');
+      console.error("Error creating product:", error);
+      throw new Error("Failed to create product");
     }
   },
 
@@ -80,8 +83,8 @@ export const productService = {
         updatedAt: Timestamp.now(),
       });
     } catch (error) {
-      console.error('Error updating product:', error);
-      throw new Error('Failed to update product');
+      console.error("Error updating product:", error);
+      throw new Error("Failed to update product");
     }
   },
 
@@ -90,8 +93,8 @@ export const productService = {
       const docRef = doc(db, COLLECTION_NAME, id);
       await deleteDoc(docRef);
     } catch (error) {
-      console.error('Error deleting product:', error);
-      throw new Error('Failed to delete product');
+      console.error("Error deleting product:", error);
+      throw new Error("Failed to delete product");
     }
   },
 
@@ -99,20 +102,20 @@ export const productService = {
     try {
       const q = query(
         collection(db, COLLECTION_NAME),
-        where('category', '==', categoryName),
-        orderBy('createdAt', 'desc')
+        where("category", "==", categoryName),
+        orderBy("createdAt", "desc")
       );
       const querySnapshot = await getDocs(q);
-      
-      return querySnapshot.docs.map(doc => ({
+
+      return querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date(),
         updatedAt: doc.data().updatedAt?.toDate() || new Date(),
       })) as Product[];
     } catch (error) {
-      console.error('Error fetching products by category:', error);
-      throw new Error('Failed to fetch products by category');
+      console.error("Error fetching products by category:", error);
+      throw new Error("Failed to fetch products by category");
     }
   },
 
@@ -120,43 +123,49 @@ export const productService = {
     category?: string;
     minPrice?: number;
     maxPrice?: number;
-    sortBy?: 'price-asc' | 'price-desc' | 'name-asc' | 'name-desc' | 'newest' | 'oldest';
+    sortBy?:
+      | "price-asc"
+      | "price-desc"
+      | "name-asc"
+      | "name-desc"
+      | "newest"
+      | "oldest";
   }): Promise<Product[]> {
     try {
-      let q = collection(db, COLLECTION_NAME);
+      const q = collection(db, COLLECTION_NAME);
       const constraints = [];
 
       // Add category filter if specified
       if (filters.category) {
-        constraints.push(where('category', '==', filters.category));
+        constraints.push(where("category", "==", filters.category));
       }
 
       // Add sorting
       switch (filters.sortBy) {
-        case 'price-asc':
-          constraints.push(orderBy('price', 'asc'));
+        case "price-asc":
+          constraints.push(orderBy("price", "asc"));
           break;
-        case 'price-desc':
-          constraints.push(orderBy('price', 'desc'));
+        case "price-desc":
+          constraints.push(orderBy("price", "desc"));
           break;
-        case 'name-asc':
-          constraints.push(orderBy('name', 'asc'));
+        case "name-asc":
+          constraints.push(orderBy("name", "asc"));
           break;
-        case 'name-desc':
-          constraints.push(orderBy('name', 'desc'));
+        case "name-desc":
+          constraints.push(orderBy("name", "desc"));
           break;
-        case 'oldest':
-          constraints.push(orderBy('createdAt', 'asc'));
+        case "oldest":
+          constraints.push(orderBy("createdAt", "asc"));
           break;
-        case 'newest':
+        case "newest":
         default:
-          constraints.push(orderBy('createdAt', 'desc'));
+          constraints.push(orderBy("createdAt", "desc"));
           break;
       }
 
       const querySnapshot = await getDocs(query(q, ...constraints));
-      
-      let products = querySnapshot.docs.map(doc => ({
+
+      let products = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date(),
@@ -165,26 +174,33 @@ export const productService = {
 
       // Apply price filters in memory (Firebase doesn't support range queries with other filters easily)
       if (filters.minPrice !== undefined) {
-        products = products.filter(product => product.price >= filters.minPrice!);
+        products = products.filter(
+          (product) => product.price >= filters.minPrice!
+        );
       }
       if (filters.maxPrice !== undefined) {
-        products = products.filter(product => product.price <= filters.maxPrice!);
+        products = products.filter(
+          (product) => product.price <= filters.maxPrice!
+        );
       }
 
       return products;
     } catch (error) {
-      console.error('Error fetching products with filters:', error);
-      throw new Error('Failed to fetch products with filters');
+      console.error("Error fetching products with filters:", error);
+      throw new Error("Failed to fetch products with filters");
     }
   },
 
   async searchProducts(searchTerm: string): Promise<Product[]> {
     try {
       // Get all products first (Firebase doesn't have good text search capabilities)
-      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const q = query(
+        collection(db, COLLECTION_NAME),
+        orderBy("createdAt", "desc")
+      );
       const querySnapshot = await getDocs(q);
 
-      const allProducts = querySnapshot.docs.map(doc => ({
+      const allProducts = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date(),
@@ -193,22 +209,26 @@ export const productService = {
 
       // Filter products by search term (case-insensitive search in name and description)
       const searchTermLower = searchTerm.toLowerCase();
-      return allProducts.filter(product =>
-        product.name.toLowerCase().includes(searchTermLower) ||
-        product.description.toLowerCase().includes(searchTermLower)
+      return allProducts.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTermLower) ||
+          product.description.toLowerCase().includes(searchTermLower)
       );
     } catch (error) {
-      console.error('Error searching products:', error);
-      throw new Error('Failed to search products');
+      console.error("Error searching products:", error);
+      throw new Error("Failed to search products");
     }
   },
 
   async getProductsOnOffer(): Promise<Product[]> {
     try {
-      const q = query(collection(db, COLLECTION_NAME), orderBy('createdAt', 'desc'));
+      const q = query(
+        collection(db, COLLECTION_NAME),
+        orderBy("createdAt", "desc")
+      );
       const querySnapshot = await getDocs(q);
 
-      const allProducts = querySnapshot.docs.map(doc => ({
+      const allProducts = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt?.toDate() || new Date(),
@@ -216,14 +236,15 @@ export const productService = {
       })) as Product[];
 
       // Filter products that have an offer price
-      return allProducts.filter(product =>
-        product.offerPrice !== undefined &&
-        product.offerPrice !== null &&
-        product.offerPrice > 0
+      return allProducts.filter(
+        (product) =>
+          product.offerPrice !== undefined &&
+          product.offerPrice !== null &&
+          product.offerPrice > 0
       );
     } catch (error) {
-      console.error('Error fetching products on offer:', error);
-      throw new Error('Failed to fetch products on offer');
+      console.error("Error fetching products on offer:", error);
+      throw new Error("Failed to fetch products on offer");
     }
   },
 };

@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <form className={styles.searchBar} onSubmit={handleSubmit}>
-      <SearchIcon width={24} height={24} color="#171212" />
+      <SearchIcon width={24} height={24} color="var(--color-text-primary)" />
       <input
         type="text"
         placeholder={placeholder}

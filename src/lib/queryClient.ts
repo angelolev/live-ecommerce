@@ -1,5 +1,10 @@
 import { QueryClient } from '@tanstack/react-query';
 
+// Interface for errors that may have HTTP status codes
+interface ErrorWithStatus extends Error {
+  status?: number;
+}
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -8,7 +13,7 @@ export const queryClient = new QueryClient({
       // Data stays in cache for 30 minutes when unused
       gcTime: 30 * 60 * 1000, // 30 minutes (previously cacheTime)
       // Retry failed requests 3 times
-      retry: (failureCount, error: any) => {
+      retry: (failureCount, error: ErrorWithStatus) => {
         // Don't retry on 4xx errors (client errors)
         if (error?.status && error.status < 500) return false;
         return failureCount < 3;
@@ -20,7 +25,7 @@ export const queryClient = new QueryClient({
     },
     mutations: {
       // Retry mutations only once on server errors
-      retry: (failureCount, error: any) => {
+      retry: (failureCount, error: ErrorWithStatus) => {
         // Only retry on 500+ server errors, not client errors
         if (error?.status && error.status < 500) return false;
         return failureCount < 1;
