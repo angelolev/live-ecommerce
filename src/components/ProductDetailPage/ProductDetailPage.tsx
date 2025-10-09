@@ -19,6 +19,7 @@ interface Product {
   name: string;
   description: string;
   price: number;
+  offerPrice?: number;
   images: string[];
   availableSizes: readonly string[];
   availableColors: ProductColor[];
@@ -55,10 +56,14 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   reviews
 }) => {
   const navigate = useNavigate();
+
+  // Generate category URL slug (lowercase, replace spaces with hyphens)
+  const categorySlug = product.category.toLowerCase().replace(/\s+/g, '-');
+
   const breadcrumbItems = [
     { label: 'Inicio', href: '#', onClick: () => navigate('/') },
-    { label: 'Mujer', href: '#' },
-    { label: 'Ropa' }
+    { label: product.category, href: '#', onClick: () => navigate(`/category/${categorySlug}`) },
+    { label: product.name }
   ];
 
   return (

@@ -36,12 +36,22 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
 
   const handlePriceChange = (field: 'min' | 'max', value: string) => {
     setPriceRange(prev => ({ ...prev, [field]: value }));
-    
+
     // Apply filter when user stops typing (debounce would be better)
     const numValue = parseFloat(value) || undefined;
+
+    // Validate that min is not greater than max
     if (field === 'min') {
+      const maxPrice = parseFloat(priceRange.max) || undefined;
+      if (numValue && maxPrice && numValue > maxPrice) {
+        return; // Don't apply if min > max
+      }
       onFiltersChange({ minPrice: numValue });
     } else {
+      const minPrice = parseFloat(priceRange.min) || undefined;
+      if (numValue && minPrice && numValue < minPrice) {
+        return; // Don't apply if max < min
+      }
       onFiltersChange({ maxPrice: numValue });
     }
   };
@@ -57,12 +67,12 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
     <div className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ''}`}>
       <div className={styles.header}>
         <h3 className={styles.title}>Filtros</h3>
-        <button 
+        <button
           className={styles.toggleButton}
           onClick={() => setIsCollapsed(!isCollapsed)}
           aria-label={isCollapsed ? 'Expandir filtros' : 'Contraer filtros'}
         >
-          {isCollapsed ? '⮟' : '⮝'}
+          {isCollapsed ? '▼' : '▲'}
         </button>
       </div>
 
@@ -120,25 +130,31 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({
           <div className={styles.filterGroup}>
             <label className={styles.label}>Rango de precio</label>
             <div className={styles.priceRange}>
-              <input
-                type="number"
-                value={priceRange.min}
-                onChange={(e) => handlePriceChange('min', e.target.value)}
-                placeholder="Mín"
-                className={styles.priceInput}
-                min="0"
-                step="0.01"
-              />
-              <span className={styles.priceSeparator}>-</span>
-              <input
-                type="number"
-                value={priceRange.max}
-                onChange={(e) => handlePriceChange('max', e.target.value)}
-                placeholder="Máx"
-                className={styles.priceInput}
-                min="0"
-                step="0.01"
-              />
+              <div className={styles.priceInputWrapper}>
+                <span className={styles.currencySymbol}>$</span>
+                <input
+                  type="number"
+                  value={priceRange.min}
+                  onChange={(e) => handlePriceChange('min', e.target.value)}
+                  placeholder="Mín"
+                  className={styles.priceInput}
+                  min="0"
+                  step="0.01"
+                />
+              </div>
+              <span className={styles.priceSeparator}>—</span>
+              <div className={styles.priceInputWrapper}>
+                <span className={styles.currencySymbol}>$</span>
+                <input
+                  type="number"
+                  value={priceRange.max}
+                  onChange={(e) => handlePriceChange('max', e.target.value)}
+                  placeholder="Máx"
+                  className={styles.priceInput}
+                  min="0"
+                  step="0.01"
+                />
+              </div>
             </div>
           </div>
 

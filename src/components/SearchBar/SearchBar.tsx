@@ -1,7 +1,7 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import SearchIcon from '../icons/SearchIcon';
-import styles from './SearchBar.module.css';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import SearchIcon from "../icons/SearchIcon";
+import styles from "./SearchBar.module.css";
 
 interface SearchBarProps {
   placeholder?: string;
@@ -10,9 +10,9 @@ interface SearchBarProps {
 
 export const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = "Buscar",
-  onSearch
+  onSearch,
 }) => {
-  const [query, setQuery] = React.useState('');
+  const [query, setQuery] = React.useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,7 +28,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   return (
     <form className={styles.searchBar} onSubmit={handleSubmit}>
-      <SearchIcon width={24} height={24} color="var(--color-text-secondary)" />
+      <SearchIcon width={24} height={24} color="#171212" />
       <input
         type="text"
         placeholder={placeholder}

@@ -17,14 +17,16 @@
   font-weight: 800;
   letter-spacing: -1px;
   line-height: 45px;
-  color: #171212;
+  color: var(--color-product-text);
+  transition: color 0.3s ease;
 }
 
 .reviewCount {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 16px;
   font-weight: 400;
-  color: #876363;
+  color: var(--color-product-text-secondary);
+  transition: color 0.3s ease;
 }
 
 .breakdown {
@@ -44,24 +46,26 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #876363;
+  color: var(--color-product-text-secondary);
   min-width: 20px;
+  transition: color 0.3s ease;
 }
 
 .progressBar {
   flex: 1;
   height: 8px;
-  background-color: #e5e8eb;
+  background-color: var(--color-product-border);
   border-radius: 4px;
   overflow: hidden;
   position: relative;
+  transition: background-color 0.3s ease;
 }
 
 .progressFill {
   height: 100%;
-  background-color: #171212;
+  background-color: var(--color-product-text);
   border-radius: 4px;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, background-color 0.3s ease;
   position: absolute;
   top: 0;
   left: 0;
@@ -71,7 +75,8 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #876363;
+  color: var(--color-product-text-secondary);
   min-width: 40px;
   text-align: right;
+  transition: color 0.3s ease;
 }

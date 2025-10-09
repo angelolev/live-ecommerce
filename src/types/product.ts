@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  offerPrice?: number;
   images: string[];
   category: string;
   createdAt: Date;
@@ -13,6 +14,7 @@ export interface ProductFormData {
   name: string;
   description: string;
   price: number;
+  offerPrice?: number;
   images: string[];
   category: string;
 }

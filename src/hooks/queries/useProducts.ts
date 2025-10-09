@@ -49,3 +49,12 @@ export const useFeaturedProducts = () => {
     select: (data) => data.slice(0, 8), // Take first 8 products as featured
   });
 };
+
+// Hook for getting products on offer
+export const useDealsProducts = () => {
+  return useQuery({
+    queryKey: queryKeys.products.onOffer(),
+    queryFn: () => productService.getProductsOnOffer(),
+    staleTime: 3 * 60 * 1000, // Cache for 3 minutes
+  });
+};

@@ -64,19 +64,17 @@
 
 .checkoutButton {
   width: 100%;
-  background-color: #D4A5A5;
+  background-color: var(--color-accent);
   color: var(--color-product-text);
   border: none;
-  border-radius: 32px;
   font-weight: 600;
   text-transform: none;
   transition: all 0.2s ease;
 }
 
 .checkoutButton:hover {
-  background-color: #C49595;
+  background-color: var(--color-accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(212, 165, 165, 0.3);
 }
 
 @media (max-width: 768px) {

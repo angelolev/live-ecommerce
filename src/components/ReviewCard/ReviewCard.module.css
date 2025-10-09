@@ -1,6 +1,7 @@
 .reviewCard {
   padding: 24px 0;
-  border-bottom: 1px solid #e5e8eb;
+  border-bottom: 1px solid var(--color-product-border);
+  transition: border-color 0.3s ease;
 }
 
 .reviewCard:last-child {
@@ -29,16 +30,18 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #171212;
+  color: var(--color-product-text);
   margin: 0 0 4px 0;
+  transition: color 0.3s ease;
 }
 
 .date {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #876363;
+  color: var(--color-product-text-secondary);
   margin: 0;
+  transition: color 0.3s ease;
 }
 
 .comment {
@@ -46,8 +49,9 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: #171212;
+  color: var(--color-product-text);
   margin: 12px 0 16px 0;
+  transition: color 0.3s ease;
 }
 
 .actions {
@@ -62,7 +66,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #876363;
+  color: var(--color-product-text-secondary);
   transition: color 0.2s ease;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 16px;
@@ -70,9 +74,9 @@
 }
 
 .voteButton:hover {
-  color: #171212;
+  color: var(--color-product-text);
 }
 
 .voteButton.active {
-  color: #171212;
+  color: var(--color-product-text);
 }

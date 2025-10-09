@@ -1,7 +1,7 @@
-import React from 'react';
-import { StarRating } from '../StarRating/StarRating';
-import { formatRating, formatPercentage } from '../../productDetailMockData';
-import styles from './RatingBreakdown.module.css';
+import React from "react";
+import { StarRating } from "../StarRating/StarRating";
+import { formatRating, formatPercentage } from "../../productDetailMockData";
+import styles from "./RatingBreakdown.module.css";
 
 interface RatingBreakdownItem {
   stars: number;
@@ -17,7 +17,7 @@ interface RatingBreakdownProps {
 export const RatingBreakdown: React.FC<RatingBreakdownProps> = ({
   rating,
   reviewCount,
-  breakdown
+  breakdown,
 }) => {
   return (
     <div className={styles.ratingBreakdown}>
@@ -26,15 +26,15 @@ export const RatingBreakdown: React.FC<RatingBreakdownProps> = ({
         <StarRating rating={rating} size="small" />
         <div className={styles.reviewCount}>{reviewCount} reseñas</div>
       </div>
-      
+
       <div className={styles.breakdown}>
         {breakdown.map((item) => (
           <div key={item.stars} className={styles.breakdownRow}>
             <span className={styles.starLabel}>{item.stars}</span>
             <div className={styles.progressBar}>
-              <div 
+              <div
                 className={styles.progressFill}
-                style={{ width: `${item.percentage}%` }}
+                style={{ width: `${item.percentage.toFixed(2)}%` }}
               />
             </div>
             <span className={styles.percentage}>

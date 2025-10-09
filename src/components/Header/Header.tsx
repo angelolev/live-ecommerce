@@ -3,16 +3,20 @@ import { Link } from 'react-router-dom';
 import DropdownIcon from '../icons/DropdownIcon';
 import HeartIcon from '../icons/HeartIcon';
 import CartIcon from '../icons/CartIcon';
+import SunIcon from '../icons/SunIcon';
+import MoonIcon from '../icons/MoonIcon';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { useCart } from '../../hooks/useCart';
 import { useFavorites } from '../../hooks/useFavorites';
 import { useEnabledWebsiteNav } from '../../hooks/queries';
+import { useTheme } from '../../hooks/useTheme';
 import styles from './Header.module.css';
 
 export const Header: React.FC = () => {
   const { cart } = useCart();
   const { favorites } = useFavorites();
   const { data: navItems = [], isLoading: navLoading } = useEnabledWebsiteNav();
+  const { theme, toggleTheme } = useTheme();
 
   const renderNavItem = (item: any) => {
     const { title, url, type, openInNewTab } = item;
@@ -48,7 +52,7 @@ export const Header: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.leftSection}>
           <Link to="/" className={styles.logo}>
-            <DropdownIcon width={16} height={16} color="#171212" />
+            <DropdownIcon width={16} height={16} />
             <span className={styles.logoText}>Shopr</span>
           </Link>
           <nav className={styles.nav}>
@@ -61,14 +65,25 @@ export const Header: React.FC = () => {
         <div className={styles.rightSection}>
           <SearchBar />
           <div className={styles.actions}>
+            <button
+              onClick={toggleTheme}
+              className={styles.themeToggle}
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            >
+              {theme === 'light' ? (
+                <MoonIcon width={20} height={20} />
+              ) : (
+                <SunIcon width={20} height={20} />
+              )}
+            </button>
             <Link to="/favorites" className={styles.actionButton}>
-              <HeartIcon width={20} height={20} color="#171212" />
+              <HeartIcon width={20} height={20} />
               {favorites.itemCount > 0 && (
                 <span className={styles.cartBadge}>{favorites.itemCount}</span>
               )}
             </Link>
             <Link to="/cart" className={styles.cartButton}>
-              <CartIcon width={20} height={20} color="#171212" />
+              <CartIcon width={20} height={20} />
               {cart.itemCount > 0 && (
                 <span className={styles.cartBadge}>{cart.itemCount}</span>
               )}

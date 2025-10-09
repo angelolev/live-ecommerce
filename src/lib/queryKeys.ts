@@ -19,10 +19,11 @@ export const queryKeys = {
     details: () => [...queryKeys.products.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.products.details(), id] as const,
     // Specific query types
-    byCategory: (categoryName: string, filters?: Omit<ProductFilters, 'category'>) => 
+    byCategory: (categoryName: string, filters?: Omit<ProductFilters, 'category'>) =>
       [...queryKeys.products.lists(), { category: categoryName, ...filters }] as const,
     featured: () => [...queryKeys.products.all, 'featured'] as const,
     search: (searchTerm: string) => [...queryKeys.products.all, 'search', searchTerm] as const,
+    onOffer: () => [...queryKeys.products.all, 'onOffer'] as const,
   },
 
   // Hero Banners

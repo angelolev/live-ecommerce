@@ -7,27 +7,28 @@
 }
 
 .link {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: none;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #876363;
+  color: var(--color-text-secondary);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .link:hover {
-  color: #171212;
+  color: var(--color-text-primary);
 }
 
 .current {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
   font-weight: 500;
-  color: #171212;
+  color: var(--color-text-primary);
 }
 
 .separator {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #876363;

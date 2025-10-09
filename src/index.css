@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800");
 
 :root {
   font-synthesis: none;
@@ -6,15 +6,36 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  /* Typography */
+  --font-family-primary: "Plus Jakarta Sans", sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 36px;
+
+  /* Product page spacing */
+  --product-container-max-width: 1280px;
+  --product-section-gap: 32px;
+  --product-item-gap: 12px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+}
+
+/* Light Theme (Default) */
+[data-theme="light"] {
   /* Colors */
-  --color-background: #1a1a1a;
-  --color-surface: #2a2a2a;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #b89e9e;
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text-primary: #171212;
+  --color-text-secondary: #876363;
   --color-accent: #ef4444;
   --color-accent-hover: #dc2626;
   --color-border: #e5e8eb;
-  
+
   /* Product page specific colors */
   --color-product-background: #ffffff;
   --color-product-text: #171212;
@@ -24,27 +45,46 @@
   --color-rating-star: #ffd600;
   --color-size-selected: #171212;
   --color-size-unselected: #f5f5f5;
-  
-  /* Typography */
-  --font-family-primary: 'Plus Jakarta Sans', sans-serif;
-  
-  /* Spacing */
-  --spacing-xs: 8px;
-  --spacing-sm: 12px;
-  --spacing-md: 16px;
-  --spacing-lg: 32px;
-  --spacing-xl: 36px;
-  
-  /* Product page spacing */
-  --product-container-max-width: 1280px;
-  --product-section-gap: 32px;
-  --product-item-gap: 12px;
-  
-  /* Border Radius */
-  --radius-sm: 8px;
-  
+
   /* Shadows */
   --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  /* Header specific */
+  --color-header-bg: #ffffff;
+  --color-header-border: #e5e8eb;
+  --color-header-text: #171212;
+  --color-icon: #171212;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Colors */
+  --color-background: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #e7d7d7;
+  --color-accent: #ef4444;
+  --color-accent-hover: #dc2626;
+  --color-border: #2a2a2a;
+
+  /* Product page specific colors */
+  --color-product-background: #1a1a1a;
+  --color-product-text: #f5f5f5;
+  --color-product-text-secondary: #b89e9e;
+  --color-product-border: #2a2a2a;
+  --color-product-accent: #ef4444;
+  --color-rating-star: #ffd600;
+  --color-size-selected: #f5f5f5;
+  --color-size-unselected: #2a2a2a;
+
+  /* Shadows */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+
+  /* Header specific */
+  --color-header-bg: #1a1a1a;
+  --color-header-border: #2a2a2a;
+  --color-header-text: #f5f5f5;
+  --color-icon: #f5f5f5;
 }
 
 #root {
@@ -61,6 +101,7 @@ body {
   background-color: var(--color-background);
   color: var(--color-text-primary);
   line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {

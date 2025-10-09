@@ -3,10 +3,10 @@
 }
 
 .label {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #171212;
+  color: var(--color-text-primary);
   margin: 0 0 12px 0;
 }
 
@@ -21,7 +21,7 @@
   border: 1px solid #e5e8eb;
   border-radius: 8px;
   background-color: #ffffff;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 14px;
   font-weight: 500;
   color: #171212;
@@ -31,11 +31,11 @@
 }
 
 .sizeButton:hover {
-  border-color: #171212;
+  border-color: var(--color-text-primary);
 }
 
 .sizeButton.selected {
-  background-color: #171212;
+  background-color: var(--color-text-primary);
   color: #ffffff;
-  border-color: #171212;
+  border-color: var(--color-text-primary);
 }

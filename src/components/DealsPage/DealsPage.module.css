@@ -35,47 +35,58 @@
   font-weight: 500;
 }
 
-.categoryHeader {
+.pageHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 2.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+  color: white;
 }
 
-.categoryInfo {
+.headerContent {
   flex: 1;
 }
 
-.categoryTitle {
+.pageTitle {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #111827;
+  color: white;
   margin: 0 0 0.5rem 0;
   line-height: 1.2;
 }
 
-.categoryDescription {
+.pageDescription {
   font-size: 1.1rem;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
   line-height: 1.5;
 }
 
-.categoryImage {
-  flex-shrink: 0;
-  margin-left: 2rem;
+.offerBadge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.categoryImg {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.badgeIcon {
+  font-size: 2.5rem;
+}
+
+.badgeText {
+  font-size: 1rem;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
 }
 
 .content {
@@ -89,15 +100,15 @@
   min-width: 0;
 }
 
-.loadMore {
+.refreshSection {
   display: flex;
   justify-content: center;
   margin-top: 3rem;
 }
 
-.loadMoreButton {
+.refreshButton {
   padding: 0.75rem 2rem;
-  background: #3b82f6;
+  background: #dc2626;
   color: white;
   border: none;
   border-radius: 8px;
@@ -107,69 +118,27 @@
   transition: all 0.2s;
 }
 
-.loadMoreButton:hover:not(:disabled) {
-  background: #2563eb;
+.refreshButton:hover:not(:disabled) {
+  background: #b91c1c;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
-.loadMoreButton:disabled {
+.refreshButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.notFound {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 4rem 2rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.notFound h1 {
-  font-size: 2rem;
-  color: #111827;
-  margin: 0 0 1rem 0;
-}
-
-.notFound p {
-  font-size: 1.1rem;
-  color: #6b7280;
-  margin: 0 0 2rem 0;
-}
-
-.backLink {
-  color: #3b82f6;
-  text-decoration: none;
-  font-weight: 500;
-  padding: 0.75rem 1.5rem;
-  border: 1px solid #3b82f6;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.backLink:hover {
-  background: #3b82f6;
-  color: white;
-}
-
-.loadingState {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 50vh;
-  font-size: 1.1rem;
-  color: #6b7280;
-}
-
 @media (max-width: 1024px) {
   .content {
     flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    text-align: center;
     gap: 1.5rem;
   }
 }
@@ -183,18 +152,11 @@
     padding: 1rem 0 3rem 0;
   }
 
-  .categoryHeader {
-    flex-direction: column;
-    text-align: center;
+  .pageHeader {
     padding: 1.5rem;
   }
 
-  .categoryImage {
-    margin-left: 0;
-    margin-top: 1rem;
-  }
-
-  .categoryTitle {
+  .pageTitle {
     font-size: 2rem;
   }
 
@@ -205,19 +167,26 @@
   .content {
     gap: 1rem;
   }
+
+  .offerBadge {
+    padding: 1rem 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
-  .categoryTitle {
+  .pageTitle {
     font-size: 1.75rem;
   }
 
-  .categoryDescription {
+  .pageDescription {
     font-size: 1rem;
   }
 
-  .categoryImg {
-    width: 100px;
-    height: 100px;
+  .badgeIcon {
+    font-size: 2rem;
+  }
+
+  .badgeText {
+    font-size: 0.875rem;
   }
 }

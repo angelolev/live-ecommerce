@@ -11,7 +11,8 @@
   height: 301px;
   border-radius: 12px;
   overflow: hidden;
-  background-color: #f5f5f5;
+  background-color: var(--color-size-unselected);
+  transition: background-color 0.3s ease;
 }
 
 .mainImage {
@@ -41,11 +42,11 @@
 }
 
 .thumbnail:hover {
-  border-color: #e5e8eb;
+  border-color: var(--color-product-border);
 }
 
 .thumbnail.active {
-  border-color: #171212;
+  border-color: var(--color-product-text);
 }
 
 .thumbnailImage {

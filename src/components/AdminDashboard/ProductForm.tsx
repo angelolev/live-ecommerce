@@ -22,6 +22,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     name: '',
     description: '',
     price: 0,
+    offerPrice: undefined,
     images: [''],
     category: ''
   });
@@ -35,6 +36,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         name: product.name,
         description: product.description,
         price: product.price,
+        offerPrice: product.offerPrice,
         images: product.images.length > 0 ? product.images : [''],
         category: product.category
       });
@@ -62,6 +64,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       return;
     }
 
+    if (formData.offerPrice !== undefined && formData.offerPrice !== null) {
+      if (formData.offerPrice <= 0) {
+        setError('El precio de oferta debe ser mayor que 0');
+        return;
+      }
+      if (formData.offerPrice >= formData.price) {
+        setError('El precio de oferta debe ser menor que el precio normal');
+        return;
+      }
+    }
+
     setError(null);
 
     const productData = {
@@ -85,7 +98,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'price' ? parseFloat(value) || 0 : value
+      [name]: (name === 'price' || name === 'offerPrice')
+        ? (value === '' ? undefined : parseFloat(value) || 0)
+        : value
     }));
   };
 
@@ -168,30 +183,47 @@ export const ProductForm: React.FC<ProductFormProps> = ({
           </div>
 
           <div className={styles.field}>
-            <label htmlFor="category" className={styles.label}>
-              Categoría
+            <label htmlFor="offerPrice" className={styles.label}>
+              Precio de Oferta ($)
             </label>
-            <select
-              id="category"
-              name="category"
-              value={formData.category}
+            <input
+              type="number"
+              id="offerPrice"
+              name="offerPrice"
+              value={formData.offerPrice ?? ''}
               onChange={handleChange}
-              className={styles.select}
-              disabled={categoriesLoading || categories.length === 0}
-            >
-              {categoriesLoading && (
-                <option value="">Cargando categorías...</option>
-              )}
-              {!categoriesLoading && categories.length === 0 && (
-                <option value="">No hay categorías disponibles</option>
-              )}
-              {categories.map(category => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
+              className={styles.input}
+              min="0"
+              step="0.01"
+              placeholder="Opcional"
+            />
           </div>
+        </div>
+
+        <div className={styles.field}>
+          <label htmlFor="category" className={styles.label}>
+            Categoría
+          </label>
+          <select
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className={styles.select}
+            disabled={categoriesLoading || categories.length === 0}
+          >
+            {categoriesLoading && (
+              <option value="">Cargando categorías...</option>
+            )}
+            {!categoriesLoading && categories.length === 0 && (
+              <option value="">No hay categorías disponibles</option>
+            )}
+            {categories.map(category => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className={styles.field}>

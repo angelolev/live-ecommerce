@@ -6,6 +6,7 @@
   transition: transform 0.2s ease;
   background-color: var(--color-surface);
   overflow: hidden;
+  position: relative;
 }
 
 .productCard:hover {
@@ -38,4 +39,40 @@
   font-weight: 400;
   color: var(--color-text-secondary);
   margin: 0;
+}
+
+.offerBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #dc2626;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 4px;
+  z-index: 1;
+  letter-spacing: 0.5px;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.offerPrice {
+  font-size: 16px;
+  font-weight: 700;
+  color: #dc2626;
+  margin: 0;
+}
+
+.originalPrice {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-decoration: line-through;
 }

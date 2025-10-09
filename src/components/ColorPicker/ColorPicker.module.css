@@ -3,10 +3,10 @@
 }
 
 .label {
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: #171212;
+  color: var(--color-text-primary);
   margin: 0 0 12px 0;
 }
 

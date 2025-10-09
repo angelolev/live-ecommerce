@@ -1,7 +1,8 @@
 .header {
-  border-bottom: 1px solid #e5e8eb;
+  border-bottom: 1px solid var(--color-header-border);
   padding: 16px 0;
-  background-color: #ffffff;
+  background-color: var(--color-header-bg);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .container {
@@ -23,12 +24,15 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  color: var(--color-icon);
+  transition: color 0.3s ease;
 }
 
 .logoText {
   font-size: 18px;
   font-weight: 700;
-  color: #171212;
+  color: var(--color-header-text);
+  transition: color 0.3s ease;
 }
 
 .nav {
@@ -40,12 +44,12 @@
 .navItem {
   font-size: 14px;
   font-weight: 500;
-  color: #171212;
+  color: var(--color-header-text);
   transition: color 0.2s ease;
 }
 
 .navItem:hover {
-  color: #ef4444;
+  color: var(--color-accent);
 }
 
 .rightSection {
@@ -67,6 +71,7 @@
   cursor: pointer;
   transition: opacity 0.2s ease;
   position: relative;
+  color: var(--color-icon);
 }
 
 .actionButton:hover {
@@ -83,6 +88,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-icon);
 }
 
 .cartButton:hover {
@@ -93,7 +99,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #ef4444;
+  background-color: var(--color-accent);
   color: white;
   font-size: 12px;
   font-weight: 600;
@@ -104,4 +110,20 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+}
+
+.themeToggle {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-icon);
+}
+
+.themeToggle:hover {
+  opacity: 0.7;
 }

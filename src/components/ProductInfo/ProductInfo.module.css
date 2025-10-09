@@ -6,8 +6,9 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 22px;
   font-weight: 700;
-  color: #171212;
+  color: var(--color-product-text);
   margin: 0 0 16px 0;
+  transition: color 0.3s ease;
 }
 
 .description {
@@ -15,16 +16,57 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  color: #171212;
+  color: var(--color-product-text);
   margin: 0 0 16px 0;
+  transition: color 0.3s ease;
 }
 
 .price {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
-  color: #876363;
+  color: var(--color-product-text-secondary);
   margin: 0 0 32px 0;
+  transition: color 0.3s ease;
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 32px 0;
+  flex-wrap: wrap;
+}
+
+.offerPrice {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-accent-hover);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.originalPrice {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-product-text-secondary);
+  margin: 0;
+  text-decoration: line-through;
+  transition: color 0.3s ease;
+}
+
+.discountBadge {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background-color: var(--color-accent-hover);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 0;
+  transition: background-color 0.3s ease;
 }
 
 .buttonsContainer {
@@ -34,7 +76,7 @@
 }
 
 .addToCartButton {
-  background-color: #ef4444 !important;
+  background-color: var(--color-accent) !important;
   color: #ffffff !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
@@ -48,7 +90,7 @@
 }
 
 .addToCartButton:hover {
-  background-color: #dc2626 !important;
+  background-color: var(--color-accent-hover) !important;
 }
 
 .favoriteButton {
@@ -57,24 +99,26 @@
   justify-content: center;
   width: 48px;
   height: 48px;
-  border: 2px solid #e5e5e5;
+  border: 2px solid var(--color-product-border);
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--color-product-background);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .favoriteButton:hover {
-  border-color: #dc2626;
-  background-color: #fef2f2;
+  border-color: var(--color-accent-hover);
+  background-color: var(--color-product-background);
+  opacity: 0.8;
 }
 
 .favoriteActive {
-  border-color: #dc2626;
-  background-color: #fef2f2;
+  border-color: var(--color-accent-hover);
+  background-color: var(--color-product-background);
+  opacity: 0.9;
 }
 
 .favoriteActive:hover {
-  border-color: #b91c1c;
-  background-color: #fee2e2;
+  border-color: var(--color-accent-hover);
+  opacity: 1;
 }
