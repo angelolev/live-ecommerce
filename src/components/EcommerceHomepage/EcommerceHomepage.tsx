@@ -7,6 +7,7 @@ import { CategoryCard } from "../CategoryCard/CategoryCard";
 import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
 import { SEOHead } from "../SEOHead/SEOHead";
+import { Treatment } from "../Treatment/Treatment";
 import { useCategories, useFeaturedProducts } from "../../hooks/queries";
 import { generateItemListSchema } from "../../utils/structuredData";
 import styles from "./EcommerceHomepage.module.css";
@@ -113,6 +114,8 @@ export const EcommerceHomepage: React.FC = () => {
               </div>
             )}
           </section>
+
+          <Treatment />
 
           <section className={styles.callToAction}>
             <h2 className={styles.ctaTitle}>¡No te lo pierdas!</h2>
