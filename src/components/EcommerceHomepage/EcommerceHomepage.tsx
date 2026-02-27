@@ -8,6 +8,7 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
 import { SEOHead } from "../SEOHead/SEOHead";
 import { Treatment } from "../Treatment/Treatment";
+import { ContactForm } from "../ContactForm/ContactForm";
 import { Footer } from "../Footer/Footer";
 import { useCategories, useFeaturedProducts } from "../../hooks/queries";
 import { generateItemListSchema } from "../../utils/structuredData";
@@ -148,6 +149,7 @@ export const EcommerceHomepage: React.FC = () => {
           </section>
         </div>
       </main>
+      <ContactForm />
       <Footer />
     </div>
   );
