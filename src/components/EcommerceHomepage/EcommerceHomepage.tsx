@@ -8,19 +8,28 @@ import { ProductCard } from "../ProductCard/ProductCard";
 import { Button } from "../Button/Button";
 import { SEOHead } from "../SEOHead/SEOHead";
 import { Treatment } from "../Treatment/Treatment";
+import { Footer } from "../Footer/Footer";
 import { useCategories, useFeaturedProducts } from "../../hooks/queries";
 import { generateItemListSchema } from "../../utils/structuredData";
 import styles from "./EcommerceHomepage.module.css";
 
 export const EcommerceHomepage: React.FC = () => {
   const navigate = useNavigate();
-  const { data: products = [], isLoading: productsLoading, error: productsError } = useFeaturedProducts();
-  const { data: categories = [], isLoading: categoriesLoading, error: categoriesError } = useCategories();
+  const {
+    data: products = [],
+    isLoading: productsLoading,
+    error: productsError,
+  } = useFeaturedProducts();
+  const {
+    data: categories = [],
+    isLoading: categoriesLoading,
+    error: categoriesError,
+  } = useCategories();
   const handleCategoryClick = (categoryId: string) => {
     // Find the category name and create URL-friendly slug
-    const category = categories.find(cat => cat.id === categoryId);
+    const category = categories.find((cat) => cat.id === categoryId);
     if (category) {
-      const categorySlug = category.name.toLowerCase().replace(/\s+/g, '-');
+      const categorySlug = category.name.toLowerCase().replace(/\s+/g, "-");
       navigate(`/category/${categorySlug}`);
     }
   };
@@ -30,9 +39,10 @@ export const EcommerceHomepage: React.FC = () => {
   };
 
   // Generate structured data for featured products
-  const structuredData = products.length > 0
-    ? generateItemListSchema(products, 'Ofertas Especiales')
-    : undefined;
+  const structuredData =
+    products.length > 0
+      ? generateItemListSchema(products, "Ofertas Especiales")
+      : undefined;
 
   return (
     <div className={styles.homepage}>
@@ -63,26 +73,33 @@ export const EcommerceHomepage: React.FC = () => {
                 <p>Error al cargar categorías: {categoriesError.message}</p>
               </div>
             )}
-            {!categoriesLoading && !categoriesError && categories.length === 0 && (
-              <div className={styles.emptyState}>
-                <p>No hay categorías disponibles. Ve al panel de administración para agregar categorías.</p>
-              </div>
-            )}
-            {!categoriesLoading && !categoriesError && categories.length > 0 && (
-              <div className={styles.categoriesGrid}>
-                {categories.map((category) => (
-                  <CategoryCard
-                    key={category.id}
-                    category={{
-                      id: category.id,
-                      name: category.name,
-                      image: category.imageUrl
-                    }}
-                    onClick={handleCategoryClick}
-                  />
-                ))}
-              </div>
-            )}
+            {!categoriesLoading &&
+              !categoriesError &&
+              categories.length === 0 && (
+                <div className={styles.emptyState}>
+                  <p>
+                    No hay categorías disponibles. Ve al panel de administración
+                    para agregar categorías.
+                  </p>
+                </div>
+              )}
+            {!categoriesLoading &&
+              !categoriesError &&
+              categories.length > 0 && (
+                <div className={styles.categoriesGrid}>
+                  {categories.map((category) => (
+                    <CategoryCard
+                      key={category.id}
+                      category={{
+                        id: category.id,
+                        name: category.name,
+                        image: category.imageUrl,
+                      }}
+                      onClick={handleCategoryClick}
+                    />
+                  ))}
+                </div>
+              )}
           </section>
 
           <section className={styles.section}>
@@ -99,7 +116,10 @@ export const EcommerceHomepage: React.FC = () => {
             )}
             {!productsLoading && !productsError && products.length === 0 && (
               <div className={styles.emptyState}>
-                <p>No hay productos disponibles. Ve al panel de administración para agregar productos.</p>
+                <p>
+                  No hay productos disponibles. Ve al panel de administración
+                  para agregar productos.
+                </p>
               </div>
             )}
             {!productsLoading && !productsError && products.length > 0 && (
@@ -121,13 +141,14 @@ export const EcommerceHomepage: React.FC = () => {
             <h2 className={styles.ctaTitle}>¡No te lo pierdas!</h2>
             <Button
               size="large"
-              onClick={() => console.log("Shop the Sale clicked")}
+              onClick={() => navigate("/ofertas")}
             >
               Comprar Ahora
             </Button>
           </section>
         </div>
       </main>
+      <Footer />
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Treatment.module.css";
 
 interface TreatmentItem {
@@ -40,7 +42,7 @@ export const Treatment: React.FC = () => {
       <h2 className={styles.title}>Choose a treatment</h2>
       <div className={styles.list}>
         {treatments.map((item) => (
-          <a key={item.id} href="#" className={styles.item}>
+          <Link key={item.id} to={`/treatment/${item.id}`} className={styles.item}>
             <div className={styles.thumbnail}>
               <img
                 src={item.image}
@@ -76,7 +78,7 @@ export const Treatment: React.FC = () => {
                 />
               </svg>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>
