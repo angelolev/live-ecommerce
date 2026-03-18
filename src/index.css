@@ -35,6 +35,9 @@
   --color-accent: #ef4444;
   --color-accent-hover: #dc2626;
   --color-border: #e5e8eb;
+  --color-error: #dc2626;
+  --color-error-bg: #fee2e2;
+  --color-error-border: #fecaca;
 
   /* Background colors */
   --background-primary: #f9fafb;
@@ -75,6 +78,9 @@
   --color-accent: #ef4444;
   --color-accent-hover: #dc2626;
   --color-border: #2a2a2a;
+  --color-error: #f87171;
+  --color-error-bg: #7f1d1d;
+  --color-error-border: #991b1b;
 
   /* Background colors */
   --background-primary: #0f0f0f;
